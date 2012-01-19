@@ -4,8 +4,8 @@ require_once("Smarty.class.php");
 
 function smarty_init() {
   $smarty = new Smarty();
-  $smarty->template_dir = '/home/xrosecky/www/templates/';
-  $smarty->config_dir   = '/home/xrosecky/www/configs/';
+  $smarty->template_dir = '/home/differ/test/templates/';
+  $smarty->config_dir   = '/home/differ/test/configs/';
   $smarty->compile_dir  = '/tmp/smarty/templates_c/';
   $smarty->cache_dir    = '/tmp/smarty/cache/';
   return $smarty;
