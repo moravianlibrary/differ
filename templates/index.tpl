@@ -1,7 +1,7 @@
 {literal}
 <script type="text/javascript">
 	function check(box) {
-		boxes = 0;
+		var boxes = 0;
 		files = document.getElementsByName("file[]");
 		for (file in files) {
 			boxes+=(files[file].checked)?1:0;
@@ -12,9 +12,10 @@
 		}*/
 		but = document.getElementById('cmp_button');
 		if (boxes == 2 || boxes == 1) {
-			but.disabled = false;
+			but.disabled = "";
+			but.removeAttribute("disabled");
 		} else {
-			but.disabled = true;
+			but.disabled = "disabled";
 		}
 	}
 </script>
@@ -83,3 +84,8 @@
 {if $error}
 <h1>{$error}</h1>
 {/if}
+{literal}
+<script type="text/javascript">
+	check()
+</script>
+{/literal}
