@@ -68,7 +68,7 @@
                format = $(data).find("format").text();
                djvu = $(data).find("djvu_dump").text();
                if (djvu) {
-                  html += "<textarea cols='40' rows='25' onClick='javascript:this.focus(); this.select();'>";
+                  html += "<textarea cols='50' rows='25' onClick='javascript:this.focus(); this.select();'>";
                   html += djvu;
                   html += "</textarea>";
                }

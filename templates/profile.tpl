@@ -3,7 +3,7 @@
      <tr>
        <td></td>
        <td>Name</td>
-       <td><input type="input" name="name" value="">test</td>
+       <td><input type="input" name="name" value="test"></td>
      </tr>
      {foreach from=$parameters item=value key=key}
      <tr>

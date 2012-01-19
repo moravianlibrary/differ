@@ -102,16 +102,14 @@ National Library of the Czech Republic, <br />contact:
 bedrich.vychodil@nkp.cz, bedrich@gmail.com<br /> <br />
 
 <B>Programmer</b><br />
-Vaclav
-Rosecky, Department of Research and Development at Moravian Library
-in Brno<br />
-contact: Vaclav.Rosecky@mzk.cz<br /> <br />
+Vaclav Rosecky<br />
+<br /> <br />
 
 <b>Tester</b><br />
-Jana Bouckova, External staff, contact: jana.bouckova@gmail.com <br /> <br />
+Jana Bouckova, External staff<br /> <br />
 
 <b>Consultant</b><br />
-Petr Stolcpart, External staff, contact: stolcpart@gmail.com<br />
+Petr Stolcpart, External staff<br />
 </P>
 
 

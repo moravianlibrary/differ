@@ -151,11 +151,11 @@
           {foreach from=$profiles item=profile name=profile}
             <tr>
               <td colspan="2">
-                <input autocomplete="off" type="checkbox" onClick="jp2_profile(this, 'image{$smarty.foreach.image.iteration}_jp2_profile', '{$image.name}', '{$profile}');">&nbsp;Profile validation:</input>
+                <input autocomplete="off" type="checkbox" onClick="jp2_profile(this, 'image{$smarty.foreach.image.iteration}_jp2_profile_{$smarty.foreach.profile.iteration}', '{$image.name}', '{$profile}');">&nbsp;Profile validation:</input>
               </td>
             </tr>
             <tr>
-              <td colspan="2" id="image{$smarty.foreach.image.iteration}_jp2_profile"></td>
+              <td colspan="2" id="image{$smarty.foreach.image.iteration}_jp2_profile_{$smarty.foreach.profile.iteration}"></td>
             </tr>
           {/foreach}
         {/if}

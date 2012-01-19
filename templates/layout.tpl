@@ -30,7 +30,7 @@
 					<a href="help.php">Help</a>
 				</li>
 				<li class='{if $selected=="traffic"}{$sel_class}{else}{$unsel_class}{/if}'><a href="traffic.php">Traffic</a></li>
-				<li class='{if $selected=="traffic"}{$sel_class}{else}{$unsel_class}{/if}'><a href="tos.php">TOS</a></li>
+				<li class='{if $selected=="tos"}{$sel_class}{else}{$unsel_class}{/if}'><a href="tos.php">TOS</a></li>
 			</ul>
 			<div id="#tabs-1" class="divpage ui-tabs-panel ui-widget-content ui-corner-bottom">
 				{include file="$template"}

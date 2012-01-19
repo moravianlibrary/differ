@@ -23,7 +23,7 @@
 
 <!-- file upload -->
 <form enctype="multipart/form-data" action="upload.php" method="POST">
-	<input type="hidden" name="MAX_FILE_SIZE" value="20000000" />
+	<input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
 	Image file to upload (Max. file size: 15 MB): <input name="uploadedfile" type="file" /><br />
 	<b>Supported formats are: TIFF, JPEG, DjVu, JPEG2000.</b><br />
 	<input type="submit" value="Upload File" />
@@ -49,7 +49,7 @@
 		{/foreach}
 	</table>
 	<input id="cmp_button" type="submit" name="action" value="execute" disabled="true"/>
-	<input id="delete_images" type="submit" name="action" value="delete_images"/>
+	<input id="delete_images" type="submit" name="action" value="delete_selected_images"/>
 	<input id="delete_all_files" type="submit" name="action" value="delete_all_files" />
 </form>
 <form>
