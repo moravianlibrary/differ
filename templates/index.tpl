@@ -22,11 +22,18 @@
 <script type="text/javascript" src="js/sorttable.js"></script>
 {/literal}
 
+<h4>How to use DIFFER in a few steps:</h4>
+<ol>
+<li> On the File manager tab, upload images you want to analyse and/or compare. Images for the comparation must have same pixel dimensions.</li>
+<li> Select 1 image to analyse or 2 images to compare them and press Execute button.</li>
+<li> You'll be redirected on the Compare tab. Review the results. </li>
+</ol>
 <!-- file upload -->
 <form enctype="multipart/form-data" action="upload.php" method="POST">
 	<input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
 	Image file to upload (Max. file size: 15 MB): <input name="uploadedfile" type="file" /><br />
-	<b>Supported formats are: TIFF, JPEG, DjVu, JPEG2000.</b><br />
+	<b>Supported formats are: TIFF, JPEG, DjVu (only first image is processed in multipage DjVu), JPEG2000.</b><br />
+	Website is optimized for Mozilla Firefox 7+.<br />
 	<input type="submit" value="Upload File" />
 </form>
 <!-- images -->
@@ -49,9 +56,10 @@
 		</tr>
 		{/foreach}
 	</table>
-	<input id="cmp_button" type="submit" name="action" value="execute" disabled="true"/>
-	<input id="delete_images" type="submit" name="action" value="delete_selected_images"/>
-	<input id="delete_all_files" type="submit" name="action" value="delete_all_files" />
+	<input id="cmp_button" type="submit" name="action" value="EXECUTE" disabled="true"/>
+	<input id="delete_images" type="submit" name="action" value="Delete selected images"/>
+	<input id="delete_all_files" type="submit" name="action" value="Delete all files" />
+	<br />(Only selection of one to two files can be processed, otherwise the Execute button is disabled)
 </form>
 <form>
 	<hr />
@@ -70,8 +78,8 @@
 		</tr>
 	{/foreach}
 	</table>
-	<input id="delete_profiles" type="submit" name="action" value="delete_selected_profiles" />
-	<input id="delete_all_profiles" type="submit" name="action" value="delete_all_profiles" />
+	<input id="delete_profiles" type="submit" name="action" value="Delete selected profiles" />
+	<input id="delete_all_profiles" type="submit" name="action" value="Delete all profiles" />
 {/if}
 </form>
 <!--

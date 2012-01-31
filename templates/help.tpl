@@ -115,7 +115,16 @@ Format validation conformance is determined at three levels: well-formedness, va
 A digital object is well-formed if it meets the purely syntactic requirements for its format. 
 An object is valid if it is well-formed and it meets the higher-level semantic requirements for format validity. 
 An object is consistent if it is valid and its internally extracted representation information is consistent with externally supplied representation information.
-		
+<br /> <br />
+<h4>References</h4>
+<ol>
+		<li>Wikipedia - <a href="http://en.wikipedia.org" target="_blank">en.wikipedia.org</a></li> 
+<li>Acharya, T., Tsai, P.: JPEG2000 standard for image compression: concepts,
+algorithms and VLSI architecture (John Wiley & Sons, Inc., Hoboken, New Jersey,
+2005)</li>
+<li>Schelkens, P., Skodras, A., Ebrahimi, T.: The JPEG 2000 Suite (John Wiley & Sons,
+Ltd., Chichester, UK, 2009)</li>
+</ol>		
 		
 <!-- ///////////////////////////////////////////////////////////// -->		
     </div>
