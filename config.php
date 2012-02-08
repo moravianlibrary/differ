@@ -5,6 +5,7 @@ function config() {
     "destination" => "/home/differ/test/images/",
     "output" => "/home/differ/test/output/",
     "profiles" => "/home/differ/test/profiles/",
+    "application_dir" => "/home/differ/test/",
     "extensions" => array("jpg", "jpeg", "tiff", "tif", "jp2", "djvu", "jpx", "jpf"),
     "tmp_dir" => "/tmp/",
     "compare_bin" => "/home/xrosecky/projects/compare/compare.sh",
