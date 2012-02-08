@@ -106,7 +106,7 @@ function delete_all_profiles() {
 }
 
 $action = $_REQUEST["action"];
-if ($action == "compare" || $action == "execute") {
+if ($action == "compare" || $action == "EXECUTE") {
    header("Location: compare.php?" . $_SERVER['QUERY_STRING']);
 } else if ($action == "delete_all_files") {
    delete_all_files();
