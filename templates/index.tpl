@@ -43,7 +43,7 @@
 			<th></th>
 			<th>file</th>
 			<th>extension</th>
-			<th>uploaded</th>
+			<th>uploaded<span id="sorttable_sortrevind"> &#x25b4;</span></th>
 			<th>size (MB)</th>
 		</tr>
 		{foreach from=$files item=file}

@@ -129,3 +129,5 @@
 
 	
 .clear { clear: both; }
+
+table.sortable th { cursor: pointer; }
