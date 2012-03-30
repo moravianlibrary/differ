@@ -2,7 +2,7 @@
     <div id="summary">
 <!-- ************************************************************* -->
 		
-<h2>DIFFER (DetermInator of File Format propERties)</h2>
+<h2>DIFFER (Determinator of Image File Format propERties)</h2>
 
 <P>We
 are pleased to introduced a developing application called DIFFER

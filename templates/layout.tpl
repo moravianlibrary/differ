@@ -9,8 +9,12 @@
 	</head>
 	<body><!-- Logo a nadpis -->
 		<div style="min-width: 730px;">
-			<a href="http://www.nkp.cz/"><img src="image/logo.jpg" height="82px" width="117px" border="none"></a>
-			<h1 style="color:white; font-size:45px; display:inline; margin-left: 20px; margin-bottom: 10px;"> NDK Image Data Validator</h1>
+  		<div style="float: left;">
+  			<a href="http://www.nkp.cz/"><img src="image/logo.jpg" height="82px" width="117px" border="none"></a>
+  		</div><div>
+  			<h1 style="color:white; font-size:45px; display:inline; margin-left: 20px;"> DIFFER</h1><br />
+  			<h1 style="color:white; font-size:20px; display:inline; margin-left: 20px; margin-bottom: 20px;"> (Determinator of Image File Format propERties)</h1>
+  		</div>
 		</div>
 
 		<!-- Tabs - Hlavni okno --> 
@@ -34,7 +38,7 @@
 		<br class="clear" />
 		<br/>
 		</div>
-		<div align="center">©2011-2012 The National Library of the Czech republic | <a href="tos.php">Terms of Use</a> </div>
+		<div align="center">© 2011-2012 The National Library of the Czech Republic | <a href="tos.php">Terms of Use</a> </div>
 	<script type="text/javascript">
 	{literal}
 	var _gaq = _gaq || [];

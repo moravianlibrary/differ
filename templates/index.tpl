@@ -22,7 +22,7 @@
 <script type="text/javascript" src="js/sorttable.js"></script>
 {/literal}
 
-<h4>How to use DIFFER in a few steps:</h4>
+<h3>How to use DIFFER in a few steps:</h3>
 <ol>
 <li> On the File manager tab, upload images you want to analyse and/or compare. Images for the comparation must have same pixel dimensions.</li>
 <li> Select 1 image to analyse or 2 images to compare them and press Execute button.</li>
@@ -37,6 +37,7 @@
 	<input type="submit" value="Upload File" />
 </form>
 <!-- images -->
+<h3>Uploaded pictures:</h3>
 <form action="index.php" method="GET">
 	<table class="sortable">
 		<tr>
@@ -63,6 +64,7 @@
 </form>
 <form>
 	<hr />
+<h3>Uploaded JP2 profiles:</h3>
 {if $profiles|@count gt 0}
 	<table class="sortable">
 		<tr>

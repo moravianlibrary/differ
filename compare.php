@@ -112,8 +112,12 @@ function compare($file1, $file2) {
 }
 
 function jhove($file) {
+   global $config;
    $file = escapeshellcmd($file);
-   $img_jhove = simplexml_load_string(exec_help("jhove '$file'", "/opt/jdk1.6.0_20/bin/java -jar /home/xrosecky/jhove/bin/JhoveApp.jar -h xml '$file' -c /home/xrosecky/jhove/conf/jhove.conf"));
+   $java = $config['java'];
+   $jhove = $config['jhove'];
+   $jhove_conf = $config['jhove_conf'];
+   $img_jhove = simplexml_load_string(exec_help("jhove '$file'", "$java -jar $jhove -h xml '$file' -c $jhove_conf"));
    $xml = simplexml_load_string("<jhove></jhove>");
    $xml->addChild("format", $img_jhove->{"repInfo"}->{"format"});
    $xml->addChild("status", $img_jhove->{"repInfo"}->{"status"});
@@ -122,8 +126,9 @@ function jhove($file) {
 
 function validate($file) {
    global $config;
+   $fits = $config['fits'];
    $xml = simplexml_load_string("<validation></validation>");
-   $img_fits = exec_help("/home/xrosecky/fits/fits.sh '$file'", "/home/xrosecky/fits/fits.sh -i '$file'");
+   $img_fits = exec_help("$fits '$file'", "$fits -i '$file'");
    $img_fits = substr($img_fits, strpos($img_fits, "<?xml version"));
    $img_fits = simplexml_load_string(str_replace('xmlns=', 'ns=', $img_fits));
    $img_fits->registerXPathNamespace('fits', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
@@ -172,56 +177,17 @@ function validate($file) {
    foreach($result as $key => $value) {
       $node->addChild($key, (string) $value)->addAttribute("tool", "kdu");
    }
-   if ($format[0] == "DJVU" || $format[0] == "DJVU (multi-page)") {
+   if ($format[0] == "DJVU" || $format[0] == "DJVU (multi-page)" || $format[0] == "jhove DJVU") {
       $djvu_dump = exec_help("djvudump '$file'", "djvudump '$file'");
       $node = $xml->addChild("djvu_dump", htmlentities($djvu_dump));
    }
    return $xml;
 }
 
-/*
-function validate($file) {
-   $xml = simplexml_load_string("<validation></validation>");
-   // Jhove
-   $img_jhove = exec_help("jhove '$file'", "/opt/jdk1.6.0_20/bin/java -jar /home/xrosecky/jhove/bin/JhoveApp.jar -h xml '$file' -c /home/xrosecky/jhove/conf/jhove.conf");
-   $img_jhove = simplexml_load_string(str_replace('xmlns=', 'ns=', $img_jhove));
-   $node = $xml->addChild("result");
-   $node->addAttribute("type", "identification");
-   $format = $img_jhove->{"repInfo"}->{"format"};
-   $node->addChild("format", $format)->addAttribute("tool", "jhove");
-   $width = 0;
-   $height = 0;
-   if ($format == "JPEG 2000") {
-      $width = current($img_jhove->xpath("//property[name='XSize']/values/value/text()"));
-      $height = current($img_jhove->xpath("//property[name='YSize']/values/value/text()"));
-   } else if ($format == "JPEG") {
-      $img_jhove->registerXPathNamespace('mix', 'http://www.loc.gov/mix/');
-      $width = (string) current($img_jhove->xpath("//mix:SpatialMetrics/mix:ImageWidth/text()"));
-      $height = (string) current($img_jhove->xpath("//mix:SpatialMetrics/mix:ImageLength/text()"));
-   }
-   // Validation
-   $node = $xml->addChild("result");
-   $node->addAttribute("type", "validation");
-   $node->addChild("status", $img_jhove->{"repInfo"}->{"status"})->addAttribute("tool", "jhove");
-   // Characterization
-   $node = $xml->addChild("result");
-   $node->addAttribute("type", "Characterization");
-   $node->addChild("width", (string) $width)->addAttribute("tool", "jhove");
-   $node->addChild("height", (string) $height)->addAttribute("tool", "jhove");
-   $node->addChild("width", (string) $width)->addAttribute("tool", "exif");
-   $node->addChild("height", (string) $height)->addAttribute("tool", "exif");
-   $result = jp2_properties($file);
-   foreach($result as $key => $value) {
-      $node->addChild($key, (string) $value)->addAttribute("tool", "kdu");
-   }
-   return $xml;
-}
-*/
-
 $files = $_GET['file'];
 $op = $_GET['op'];
 $action = $_GET['action'];
-if ((count($files) == 2 || count($files) == 1) && ($action == "compare" || $action == "execute" || $action == "EXECUTE")) {
+if ((count($files) == 2 || count($files) == 1) && ($action == "compare" || $action == "execute")) {
    if (count($files) == 2) {
       $xml = compare($files[0], $files[1]);
    } else {
