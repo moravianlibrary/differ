@@ -187,7 +187,7 @@ function validate($file) {
 $files = $_GET['file'];
 $op = $_GET['op'];
 $action = $_GET['action'];
-if ((count($files) == 2 || count($files) == 1) && ($action == "compare" || $action == "execute")) {
+if ((count($files) == 2 || count($files) == 1) && ($action == "compare" || $action == "execute" || $action == "EXECUTE")) {
    if (count($files) == 2) {
       $xml = compare($files[0], $files[1]);
    } else {

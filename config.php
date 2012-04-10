@@ -9,6 +9,7 @@ function config() {
     "jhove" => "/home/differ/jhove/bin/JhoveApp.jar",
     "jhove_conf" => "/home/differ/jhove/conf/jhove.conf",
     "fits" => "/home/differ/fits/fits.sh",
+    "application_dir" => "/home/differ/production/",
     "extensions" => array("jpg", "jpeg", "tiff", "tif", "jp2", "djvu", "jpx", "jpf", "TIF", "TIFF"),
     "tmp_dir" => "/tmp/",
     "compare_bin" => "/home/differ/projects/compare/compare.sh",
