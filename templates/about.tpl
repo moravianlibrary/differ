@@ -101,21 +101,18 @@ Vychodil, Head of Digital preservation Standards Department at
 National Library of the Czech Republic, <br />contact:
 bedrich.vychodil@nkp.cz, bedrich@gmail.com<br /> <br />
 
-<B>Programmer</b><br />
-Vaclav Rosecky<br />
-<br /> <br />
+<B>Developers</b><br />
+<ul>
+<li>Vaclav Rosecky -- Solution support quality consultant manager etc. :], contact: rosecky@mzk.cz</li>
+<li>Jiri Kremser -- Metadata analyst, Java developer, Java lecturer at Masaryk University, contact: kremser@mzk.cz</li>
+</ul>
 
-<b>Tester</b><br />
-Jana Bouckova, External staff<br /> <br />
+<B>Former Members</b><br />
+<ul>
+<li>Petr Stolcpart (Consultant)</li>
+<li>Jana Bouckova (Tester)</li>
+</ul>
 
-<b>Consultant</b><br />
-Petr Stolcpart, External staff<br />
-</P>
 
-
-		
-		
-		
-		
 <!-- ///////////////////////////////////////////////////////////// -->		
     </div>
