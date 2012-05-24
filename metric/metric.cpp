@@ -37,6 +37,7 @@ int main( int argc, char** argv )
   cvCvtColor(src1, gray1, CV_RGB2GRAY); //color images are BGR!
   cvCvtColor(src2, gray2, CV_RGB2GRAY); //color images are BGR!
   
+  cout<<"Similarity Metrics:: \n\n";
   //Calculating the PSNR
   double psnr=0;
   psnr = calcPSNR(gray1, gray2);
@@ -134,7 +135,6 @@ double calcSSIM(IplImage* src1, IplImage* src2, const double K1, const double K2
   IplImage* ssim_map = cvCreateImage( size, d, nChan);
 
   //PRELIMINARY COMPUTING
-
   //gaussian smoothing is performed
   cvSmooth( img1, mu1, CV_GAUSSIAN, gaussian_window, gaussian_window, gaussian_sigma );
   cvSmooth( img2, mu2, CV_GAUSSIAN, gaussian_window, gaussian_window, gaussian_sigma );
@@ -157,7 +157,6 @@ double calcSSIM(IplImage* src1, IplImage* src2, const double K1, const double K2
   cvAddWeighted( sigma12, 1, mu1_mu2, -1, 0, sigma12 );
   //cvSub(sigma12, mu1_mu2, sigma12);
   
-  //////////////////////////////////////////////////////////////////////////
   // FORMULA to calculate SSIM
 
   // (2*mu1_mu2 + C1)
@@ -195,7 +194,6 @@ double calcSSIM(IplImage* src1, IplImage* src2, const double K1, const double K2
 
 double calcQualityIndex(IplImage* src1, IplImage* src2, const int B)
 {
-  // default settings
   int x=src1->width, y=src1->height;
   int nChan=1, d=IPL_DEPTH_32F;
   
@@ -234,12 +232,12 @@ double calcQualityIndex(IplImage* src1, IplImage* src2, const int B)
   IplImage* denominator1 = cvCreateImage( size, d, nChan);
   IplImage* denominator2 = cvCreateImage( size, d, nChan);
   IplImage* denominator = cvCreateImage( size, d, nChan);
-  //ssim map
+  //image_quality map
   IplImage* image_quality_map = cvCreateImage( size, d, nChan);
 
   //PRELIMINARY COMPUTING
 
-  //gaussian smoothing is performed
+  //average smoothing is performed
   cvSmooth( img1, mu1, CV_BLUR, B, B);
   cvSmooth( img2, mu2, CV_BLUR, B, B);
 
@@ -251,17 +249,13 @@ double calcQualityIndex(IplImage* src1, IplImage* src2, const int B)
   //calculating sigma1, sigma2, sigma12
   cvSmooth( img1_sq, sigma1_sq, CV_BLUR, B, B);
   cvAddWeighted( sigma1_sq, 1, mu1_sq, -1, 0, sigma1_sq );
-  //cvSub(sigma1_sq, mu1_sq, sigma1_sq);
 
   cvSmooth( img2_sq, sigma2_sq, CV_BLUR, B, B);
   cvAddWeighted( sigma2_sq, 1, mu2_sq, -1, 0, sigma2_sq );
-  //cvSub(sigma2_sq, mu2_sq, sigma2_sq);
 
   cvSmooth( img1_img2, sigma12, CV_BLUR, B, B);
   cvAddWeighted( sigma12, 1, mu1_mu2, -1, 0, sigma12 );
-  //cvSub(sigma12, mu1_mu2, sigma12);
   
-  //////////////////////////////////////////////////////////////////////////
   // FORMULA to calculate Image Quality Index
 
   // (4*sigma12)
@@ -282,7 +276,7 @@ double calcQualityIndex(IplImage* src1, IplImage* src2, const int B)
   // ((4*sigma12).*(mu1_mu2))./((mu1_sq + mu2_sq).*(sigma1_sq + sigma2_sq))
   cvDiv( numerator, denominator, image_quality_map, 1 );
 
-  // SSIM map created in image_quality_map
+  // image_quality_map created in image_quality_map
   // average is taken 
 
   CvScalar image_quality_value = cvAvg( image_quality_map );
