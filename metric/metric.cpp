@@ -248,6 +248,14 @@ class calcSSIM : public SimilarityMetric {
       for (int i=0; i < 4; i++)
         mean_cs_value.val[i] = -1; // Initialize with an out of bound value of mssim [0,1]
     }
+    
+    /* ~calcSSIM()
+    {
+      if (ssim_map != NULL)
+        cvReleaseImage(&ssim_map);
+      if (cs_map != NULL)
+        cvReleaseImage(&cs_map);
+    }*/
 
     void setK1(double val) { K1 = val; }
     void setK2(double val) { K2 = val; }
@@ -257,12 +265,24 @@ class calcSSIM : public SimilarityMetric {
 
     CvScalar getMSSIM() { return mssim_value; }
     CvScalar getMeanCSvalue() { return mean_cs_value; }
-    void getSSIM_map(IplImage** output_map) { *output_map = ssim_map; }
-    void getCS_map(IplImage *output_map) { output_map = cs_map; }
-   
+    IplImage* getSSIM_map() { return ssim_map; }
+
+    IplImage* getCS_map() { return cs_map; }
+
+    void releaseSSIM_map() { 
+      if (ssim_map != NULL)
+        cvReleaseImage(&ssim_map);
+      ssim_map = NULL;
+    }
+    
+    void releaseCS_map() { 
+      if (cs_map != NULL)
+        cvReleaseImage(&cs_map); 
+      cs_map = NULL;
+    }
+
     int print_map()
     {
-      
       if (ssim_map == NULL)
       {
         cout<<"Error>> No Index_map_created.\n";
@@ -281,7 +301,6 @@ class calcSSIM : public SimilarityMetric {
       cvReleaseImage(&ssim_map_t);
 
       return 1;
-    
     }
 
     virtual CvScalar compare(IplImage *source1, IplImage *source2, Colorspace space)
@@ -460,6 +479,20 @@ class calcMSSSIM : public SimilarityMetric {
       memcpy(gamma, gamma_t, sizeof(gamma_t));
     }
 
+    ~calcMSSSIM()
+    {
+      delete[] alpha;
+      delete[] beta;
+      delete[] gamma;
+      int i;
+      for (i=0; i < level; i++) {
+        if(ms_ssim_map[i] != NULL)
+          cvReleaseImage(&ms_ssim_map[i]);
+      }
+      if(ms_ssim_map !=NULL) 
+        free(ms_ssim_map);
+    }
+
     void setK1(double val) { K1 = val; }
     void setK2(double val) { K2 = val; }
     void setGaussian_window(int val) { gaussian_window = val; }
@@ -469,6 +502,19 @@ class calcMSSSIM : public SimilarityMetric {
     void setAlpha(float *val) { alpha = val; }
     void setBeta(float *val) { beta = val; }
     void setGamma(float *val) { gamma = val; }
+
+    CvScalar getMSSSIM() { return ms_ssim_value; }
+    IplImage** getMSSSIM_map() { return ms_ssim_map; }
+
+    void releaseMSSSIM_map() {
+      int i;
+      for (i=0; i < level; i++) {
+        if(ms_ssim_map[i] != NULL)
+          cvReleaseImage(&ms_ssim_map[i]);
+      }
+      if(ms_ssim_map != NULL)
+        free(ms_ssim_map);
+    }
 
     // Prints all index maps of all the levels into different xml files
     int print_map()
@@ -487,9 +533,6 @@ class calcMSSSIM : public SimilarityMetric {
       }
       return 1;
     }
-
-    CvScalar getMSSSIM() { return ms_ssim_value; }
-    void getMSSSIM_map(IplImage** output_map) { output_map = ms_ssim_map; }
    
     virtual CvScalar compare(IplImage *source1, IplImage *source2, Colorspace space)
     {
@@ -505,6 +548,7 @@ class calcMSSSIM : public SimilarityMetric {
       ssim.setGaussian_window(gaussian_window);
       ssim.setGaussian_sigma(gaussian_sigma);
       ssim.setL(L);
+      //Creating an array of IplImages for ssim_map at various levels
       ms_ssim_map = (IplImage**)(malloc(sizeof(IplImage*)*level));
 
       #ifdef DEBUG
@@ -530,8 +574,9 @@ class calcMSSSIM : public SimilarityMetric {
 
         CvScalar mssim_t = ssim.getMSSIM();
         CvScalar mcs_t = ssim.getMeanCSvalue();
-        ms_ssim_map[i] = cvCreateImage(downs_size, IPL_DEPTH_32F, nChan);
-        ssim.getSSIM_map(&ms_ssim_map[i]);
+        ms_ssim_map[i] = ssim.getSSIM_map();
+        //releasing the CS_map since not required
+        ssim.releaseCS_map(); 
         
         #ifdef DEBUG
         cout<<"Size of MAP at level = "<<i<<"size = "<<ms_ssim_map[i]->width<<" "<<ms_ssim_map[i]->height<<"\n";
@@ -575,12 +620,20 @@ class calcQualityIndex : public SimilarityMetric {
         image_quality_value.val[i] = -2;   // Initialize with an out of bound value for image_quality_value [-1.1]
     }
     
+    ~calcQualityIndex()
+    {
+      if(image_quality_map != NULL)
+        cvReleaseImage(&image_quality_map);
+    }
+    
     void setB(int val) { B = val; }
 
     CvScalar getImageQuailty() { return image_quality_value; }
-    void getImageQuality_map(IplImage *output_map) 
-    {
-      output_map = image_quality_map; 
+    IplImage* getImageQuality_map() { return image_quality_map; }
+
+    void releaseImageQuality_map() {
+      if(image_quality_map != NULL)
+        cvReleaseImage(&image_quality_map);
     }
 
     int print_map()
@@ -590,7 +643,6 @@ class calcQualityIndex : public SimilarityMetric {
         cout<<"Error>> No Index_map_created.\n";
         return 0;
       }
-
       int x = image_quality_map->width, y = image_quality_map->height;
       int nChan = image_quality_map->nChannels, d = IPL_DEPTH_8U;
       CvSize size = cvSize(x, y);
@@ -601,6 +653,7 @@ class calcQualityIndex : public SimilarityMetric {
 
       cvSave("output/imgQI.xml", image_quality_map, NULL, "TESTing Index map");
       cvSaveImage("output/imgQI.bmp", image_quality_map_t);
+      cvReleaseImage(&image_quality_map_t);
       return 1;
     }
     
@@ -757,18 +810,12 @@ int main(int argc, char** argv)
   cout<<"------------------------------------------------------------------------------------\n";
   
   CoreFunctions F;
-  //calcSSIM M1;
-  //calcMSE M1;
   
   CvScalar tM;
   SimilarityMetric * sM;
-  SimilarityMetric * sM1;
-/* 
-  //for (int j=0;j<100;j++)
-  {
-//   
-  calcMSE M;
-  sM=&M;
+
+  calcMSE ME;
+  sM=&ME;
   cout<<"\nMSE\n";
   tM= sM->compare(gray1,gray2,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,1);
@@ -800,30 +847,34 @@ int main(int argc, char** argv)
   tM= sM->compare(src1,src3,YCbCr);
   F.printCvScalar(tM,YCbCr,3);
   cout<<"...................................................................................\n";
-  }
-*/  
+  
+  /* 
   calcSSIM M;
   sM=&M;
   cout<<"\nSSIM\n";
-  /* 
   tM= sM->compare(gray1,gray2,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,1);
   tM= sM->compare(gray1,gray2,RGB);
   F.printCvScalar(tM,RGB,1);
   tM= sM->compare(gray1,gray2,YCbCr);
   F.printCvScalar(tM,YCbCr,1);
-  */
   tM= sM->compare(src1,src3,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,3);
   tM= sM->compare(src1,src3,RGB);
   F.printCvScalar(tM,RGB,3);
+  M.releaseSSIM_map();
+  M.releaseCS_map();
   tM= sM->compare(src1,src3,YCbCr);
   F.printCvScalar(tM,YCbCr,3);
+  M.releaseSSIM_map();
+  M.releaseCS_map();
   cout<<"...................................................................................\n";
- /*  
+
+*/
   calcMSSSIM MS;
   sM=&MS;
   cout<<"\nMS-SSIM\n";
+  /*
   tM= sM->compare(gray1,gray2,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,1);
   tM= sM->compare(gray1,gray2,RGB);
@@ -832,11 +883,19 @@ int main(int argc, char** argv)
   F.printCvScalar(tM,YCbCr,1);
   tM= sM->compare(src1,src3,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,3);
+  */
   tM= sM->compare(src1,src3,RGB);
   F.printCvScalar(tM,RGB,3);
-  tM= sM->compare(src1,src3,YCbCr);
-  MS.print_map();
+  //MS.releaseMSSSIM_map();
+  
+  calcMSSSIM MS1;
+  SimilarityMetric * sM1;
+  sM1 = &MS1;
+  tM= sM1->compare(src1,src3,YCbCr);
+  //MS.print_map();
   F.printCvScalar(tM,YCbCr,3);
+  //MS1.releaseMSSSIM_map();
+  /* 
   cout<<"...................................................................................\n";
   
   calcQualityIndex Q;
@@ -856,7 +915,7 @@ int main(int argc, char** argv)
   tM= sM->compare(src1,src3,YCbCr);
   F.printCvScalar(tM,YCbCr,3);
   cout<<"...................................................................................\n";
-*/
+ */ 
   //Release images
   cvReleaseImage(&src1);
   cvReleaseImage(&src2);
