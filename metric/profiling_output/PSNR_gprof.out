@@ -1,0 +1,1077 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 25.35      1.97     1.97       12     0.16     0.16  void cv::cvt_<unsigned char, float>(cv::Mat const&, cv::Mat&)
+ 17.89      3.36     1.39        6     0.23     0.23  void cv::binaryOpC1_<cv::OpAbsDiff<float>, cv::VBinOp32f<cv::_VAbsDiff32f> >(cv::Mat const&, cv::Mat const&, cv::Mat&)
+ 15.70      4.58     1.22        6     0.20     0.20  void cv::mul_<float, float>(cv::Mat const&, cv::Mat const&, cv::Mat&, double)
+  4.76      4.95     0.37                             memcpy
+  4.50      5.30     0.35                             mmap
+  4.50      5.65     0.35        2     0.18     0.18  icvBGRx2YCrCb_8u_CnC3R(unsigned char const*, int, unsigned char*, int, CvSize, int, int)
+  3.86      5.95     0.30     1000     0.00     0.00  cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::operator()(unsigned char const**, unsigned char*, int, int, int)
+  3.47      6.22     0.27        4     0.07     0.07  icvBGRx2Gray_8u_CnC1R(unsigned char const*, int, unsigned char*, int, CvSize, int, int)
+  2.83      6.44     0.22                             jpeg_idct_16x16
+  2.83      6.66     0.22                             jpeg_idct_islow
+  2.57      6.86     0.20                             ycc_rgb_convert
+  2.45      7.05     0.19     8000     0.00     0.00  icvCvt_BGR2RGB_8u_C3R(unsigned char const*, int, unsigned char*, int, CvSize)
+  2.45      7.24     0.19     4000     0.00     0.00  cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::operator()(unsigned char const*, unsigned char*, int, int)
+  2.32      7.42     0.18        2     0.09     0.09  cv::Scalar_<double> cv::sum_<cv::Vec<float, 3>, cv::Vec<double, 3> >(cv::Mat const&)
+  2.06      7.58     0.16                             __write_nocancel
+  1.03      7.66     0.08        4     0.02     0.02  cv::Scalar_<double> cv::sum_<float, double>(cv::Mat const&)
+  0.39      7.69     0.03                             brk
+  0.39      7.72     0.03                             decode_mcu
+  0.26      7.74     0.02                             decompress_onepass
+  0.13      7.75     0.01                             __open_nocancel
+  0.13      7.76     0.01                             __read_nocancel
+  0.13      7.77     0.01                             memset
+  0.00      7.77     0.00    14020     0.00     0.00  cv::borderInterpolate(int, int, int)
+  0.00      7.77     0.00     4001     0.00     0.00  cv::WLByteStream::putBytes(void const*, int)
+  0.00      7.77     0.00     1465     0.00     0.00  cv::WBaseStream::writeBlock()
+  0.00      7.77     0.00      123     0.00     0.00  cvFree_
+  0.00      7.77     0.00       82     0.00     0.00  cvAlloc
+  0.00      7.77     0.00       65     0.00     0.00  cv::Mat::Mat(_IplImage const*, bool)
+  0.00      7.77     0.00       41     0.00     0.00  cvCreateData
+  0.00      7.77     0.00       41     0.00     0.00  cvReleaseData
+  0.00      7.77     0.00       41     0.00     0.00  cvReleaseImage
+  0.00      7.77     0.00       41     0.00     0.00  cvReleaseImageHeader
+  0.00      7.77     0.00       33     0.00     0.00  cvCreateImage
+  0.00      7.77     0.00       33     0.00     0.00  cvInitImageHeader
+  0.00      7.77     0.00       30     0.00     0.00  cv::Mat::create(int, int, int)
+  0.00      7.77     0.00       24     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00       22     0.00     0.00  cv::fastMalloc(unsigned long)
+  0.00      7.77     0.00       22     0.00     0.00  cv::fastFree(void*)
+  0.00      7.77     0.00       19     0.00     0.00  cv::Mat::release()
+  0.00      7.77     0.00       18     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00       17     0.00     0.12  cv::Mat::convertTo(cv::Mat&, int, double, double) const
+  0.00      7.77     0.00       13     0.00     0.00  cvSize(int, int)
+  0.00      7.77     0.00       12     0.00     0.03  SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace)
+  0.00      7.77     0.00       12     0.00     0.00  cv::WLByteStream::putDWord(int)
+  0.00      7.77     0.00       12     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00       12     0.00     0.12  cvConvertScale
+  0.00      7.77     0.00       12     0.00     0.00  cvGetErrStatus
+  0.00      7.77     0.00       12     0.00     0.00  cvGetMat
+  0.00      7.77     0.00       12     0.00     0.00  cvInitMatHeader
+  0.00      7.77     0.00       10     0.00     0.00  cv::BaseImageDecoder::signatureLength() const
+  0.00      7.77     0.00        8     0.00     0.00  cvCloneImage
+  0.00      7.77     0.00        7     0.00     0.00  cv::BaseImageDecoder::BaseImageDecoder()
+  0.00      7.77     0.00        7     0.00     0.00  CvType::CvType(char const*, int (*)(void const*), void (*)(void**), void* (*)(CvFileStorage*, CvFileNode*), void (*)(CvFileStorage*, char const*, void const*, CvAttrList), void* (*)(void const*))
+  0.00      7.77     0.00        7     0.00     0.00  CvType::~CvType()
+  0.00      7.77     0.00        7     0.00     0.00  cvRegisterType
+  0.00      7.77     0.00        6     0.00     0.00  CoreFunctions::printCvScalar(CvScalar, Colorspace, int)
+  0.00      7.77     0.00        6     0.00     0.00  cv::BaseImageEncoder::BaseImageEncoder()
+  0.00      7.77     0.00        6     0.00     0.20  cv::pow(cv::Mat const&, double, cv::Mat&)
+  0.00      7.77     0.00        6     0.00     0.04  cv::sum(cv::Mat const&)
+  0.00      7.77     0.00        6     0.00     0.23  cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&)
+  0.00      7.77     0.00        6     0.00     0.20  cv::multiply(cv::Mat const&, cv::Mat const&, cv::Mat&, double)
+  0.00      7.77     0.00        6     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00        6     0.00     0.78  calcPSNR::compare(_IplImage*, _IplImage*, Colorspace)
+  0.00      7.77     0.00        6     0.00     0.23  cvAbsDiff
+  0.00      7.77     0.00        6     0.00     0.04  cvAvg
+  0.00      7.77     0.00        6     0.00     0.10  cvCvtColor
+  0.00      7.77     0.00        6     0.00     0.00  cvGetImageCOI
+  0.00      7.77     0.00        6     0.00     0.20  cvPow
+  0.00      7.77     0.00        4     0.00     0.00  cv::BaseImageDecoder::checkSignature(std::string const&) const
+  0.00      7.77     0.00        4     0.00     0.00  std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageDecoder>*, std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > > >, cv::Ptr<cv::BaseImageDecoder> const&)
+  0.00      7.77     0.00        4     0.00     0.00  std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageEncoder>*, std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > > >, cv::Ptr<cv::BaseImageEncoder> const&)
+  0.00      7.77     0.00        3     0.00     0.00  cv::JpegDecoder::~JpegDecoder()
+  0.00      7.77     0.00        3     0.00     0.00  cv::RBaseStream::RBaseStream()
+  0.00      7.77     0.00        3     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00        2     0.00     0.00  cv::BmpEncoder::~BmpEncoder()
+  0.00      7.77     0.00        2     0.00     0.00  cv::JpegDecoder::readHeader()
+  0.00      7.77     0.00        2     0.00     0.10  cv::JpegDecoder::readData(cv::Mat&)
+  0.00      7.77     0.00        2     0.00     0.00  cv::WBaseStream::close()
+  0.00      7.77     0.00        2     0.00     0.00  cv::findDecoder(std::string const&)
+  0.00      7.77     0.00        2     0.00     0.00  cv::RLByteStream::~RLByteStream()
+  0.00      7.77     0.00        2     0.00     0.00  cv::WLByteStream::putWord(int)
+  0.00      7.77     0.00        2     0.00     0.12  cv::getKernelType(cv::Mat const&, cv::Point_<int>)
+  0.00      7.77     0.00        2     0.00     0.00  cv::BaseImageDecoder::setSource(std::string const&)
+  0.00      7.77     0.00        2     0.00     0.00  cv::cvarrToMat(void const*, bool, bool, int)
+  0.00      7.77     0.00        2     0.00     0.00  void cv::cvt_<float, double>(cv::Mat const&, cv::Mat&)
+  0.00      7.77     0.00        2     0.00     0.10  cv::imread_(std::string const&, int, int, cv::Mat*)
+  0.00      7.77     0.00        2     0.00     0.00  void cv::cvtScale_<float, cv::OpCvt<float, int> >(cv::Mat const&, cv::Mat&, double, double)
+  0.00      7.77     0.00        2     0.00     0.00  cv::PxMDecoder::signatureLength() const
+  0.00      7.77     0.00        2     0.00     0.00  cv::JpegDecoder::newDecoder() const
+  0.00      7.77     0.00        2     0.00     0.00  cv::TiffDecoder::signatureLength() const
+  0.00      7.77     0.00        2     0.00     0.00  std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned long, unsigned char const&)
+  0.00      7.77     0.00        2     0.00     0.10  cvLoadImage
+  0.00      7.77     0.00        1     0.00     0.00  global constructors keyed to _ZN2cv11FileStorage20getDefaultObjectNameERKSs
+  0.00      7.77     0.00        1     0.00     0.00  global constructors keyed to _ZN2cv11bitwise_andERKNS_3MatES2_RS0_S2_
+  0.00      7.77     0.00        1     0.00     0.00  global constructors keyed to _ZN2cv11findDecoderERKSs
+  0.00      7.77     0.00        1     0.00     0.00  global constructors keyed to _ZN2cv16useOptimizedFlagE
+  0.00      7.77     0.00        1     0.00     0.00  global constructors keyed to main
+  0.00      7.77     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      7.77     0.00        1     0.00     0.00  SimilarityMetric::SimilarityMetric()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BmpDecoder::BmpDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BmpDecoder::~BmpDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::BmpEncoder::BmpEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::PxMDecoder::PxMDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::PxMDecoder::~PxMDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::PxMEncoder::PxMEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::PxMEncoder::~PxMEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::JpegDecoder::JpegDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::JpegEncoder::JpegEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::JpegEncoder::~JpegEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::RBaseStream::close()
+  0.00      7.77     0.00        1     0.00     0.00  cv::TiffDecoder::TiffDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::TiffDecoder::~TiffDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::TiffEncoder::TiffEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::TiffEncoder::~TiffEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::WBaseStream::open(std::string const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::WBaseStream::allocate()
+  0.00      7.77     0.00        1     0.00     0.00  cv::WBaseStream::WBaseStream()
+  0.00      7.77     0.00        1     0.00     0.00  cv::findEncoder(std::string const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::ColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::ColumnFilter(cv::Mat const&, int, double, cv::FixedPtCastEx<int, unsigned char> const&, cv::SymmColumnVec_32s8u const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::FilterEngine::init(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&)
+  0.00      7.77     0.00        1     0.00     0.49  cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool)
+  0.00      7.77     0.00        1     0.00     0.00  cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int)
+  0.00      7.77     0.00        1     0.00     0.00  cv::FilterEngine::start(cv::Mat const&, cv::Rect_<int> const&, bool, int)
+  0.00      7.77     0.00        1     0.00     0.49  cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int)
+  0.00      7.77     0.00        1     0.00     0.00  cv::FilterEngine::FilterEngine(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::FilterEngine::~FilterEngine()
+  0.00      7.77     0.00        1     0.00     1.07  cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int)
+  0.00      7.77     0.00        1     0.00     0.00  cv::RMByteStream::~RMByteStream()
+  0.00      7.77     0.00        1     0.00     0.00  cv::WLByteStream::~WLByteStream()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BaseColumnFilter::reset()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BaseImageEncoder::setDestination(std::string const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::SunRasterDecoder::SunRasterDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::SunRasterDecoder::~SunRasterDecoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::SunRasterEncoder::SunRasterEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::SunRasterEncoder::~SunRasterEncoder()
+  0.00      7.77     0.00        1     0.00     0.00  cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::~SymmColumnFilter()
+  0.00      7.77     0.00        1     0.00     0.00  cv::getGaussianKernel(int, double, int)
+  0.00      7.77     0.00        1     0.00     0.00  cv::getLinearRowFilter(int, int, cv::Mat const&, int, int)
+  0.00      7.77     0.00        1     0.00     0.58  cv::createGaussianFilter(int, cv::Size_<int>, double, double, int)
+  0.00      7.77     0.00        1     0.00     0.00  cv::ImageCodecInitializer::ImageCodecInitializer()
+  0.00      7.77     0.00        1     0.00     0.12  cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int)
+  0.00      7.77     0.00        1     0.00     0.58  cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&)
+  0.00      7.77     0.00        1     0.00     0.00  cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::~RowFilter()
+  0.00      7.77     0.00        1     0.00     0.00  cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool)
+  0.00      7.77     0.00        1     0.00     0.00  void cv::cvtScale_<int, cv::OpCvt<float, float> >(cv::Mat const&, cv::Mat&, double, double)
+  0.00      7.77     0.00        1     0.00     0.00  CvModule::~CvModule()
+  0.00      7.77     0.00        1     0.00     0.00  calcPSNR::calcPSNR()
+  0.00      7.77     0.00        1     0.00     0.00  cv::BmpEncoder::newEncoder() const
+  0.00      7.77     0.00        1     0.00     0.00  cv::BaseImageEncoder::getDescription() const
+  0.00      7.77     0.00        1     0.00     0.00  cv::BaseImageEncoder::isFormatSupported(int) const
+  0.00      7.77     0.00        1     0.00     0.00  std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector()
+  0.00      7.77     0.00        1     0.00     0.00  std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector()
+  0.00      7.77     0.00        1     0.00     0.00  std::vector<unsigned char*, std::allocator<unsigned char*> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char**, std::vector<unsigned char*, std::allocator<unsigned char*> > >, unsigned long, unsigned char* const&)
+  0.00      7.77     0.00        1     0.00     0.00  std::vector<int, std::allocator<int> >::_M_fill_insert(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, unsigned long, int const&)
+  0.00      7.77     0.00        1     0.00     0.00  cvRegisterModule
+  0.00      7.77     0.00        1     0.00     0.00  cvSaveImage
+  0.00      7.77     0.00        1     0.00     0.00  cvSetImageIOFunctions
+  0.00      7.77     0.00        1     0.00     1.07  cvSmooth
+  0.00      7.77     0.00        1     0.00     6.14  main
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.13% of 7.77 seconds
+
+index % time    self  children    called     name
+                0.00    6.14       1/1           __libc_start_main [2]
+[1]     79.0    0.00    6.14       1         main [1]
+                0.00    4.67       6/6           calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+                0.00    1.07       1/1           cvSmooth [14]
+                0.00    0.21       2/6           cvCvtColor [16]
+                0.00    0.19       2/2           cvLoadImage [33]
+                0.00    0.00       6/6           CoreFunctions::printCvScalar(CvScalar, Colorspace, int) [2195]
+                0.00    0.00       5/41          cvReleaseImage [52]
+                0.00    0.00       3/13          cvSize(int, int) [2188]
+                0.00    0.00       3/33          cvCreateImage [54]
+                0.00    0.00       1/1           cvSaveImage [63]
+                0.00    0.00       1/1           calcPSNR::calcPSNR() [2267]
+-----------------------------------------------
+                                                 <spontaneous>
+[2]     79.0    0.00    6.14                 __libc_start_main [2]
+                0.00    6.14       1/1           main [1]
+-----------------------------------------------
+                0.00    4.67       6/6           main [1]
+[3]     60.2    0.00    4.67       6         calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+                0.00    1.39      12/12          cvConvertScale [6]
+                0.00    1.39       6/6           cvAbsDiff [7]
+                0.00    1.22       6/6           cvPow [10]
+                0.00    0.41      12/12          SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+                0.00    0.26       6/6           cvAvg [27]
+                0.00    0.00      36/41          cvReleaseImage [52]
+                0.00    0.00      24/33          cvCreateImage [54]
+                0.00    0.00       6/13          cvSize(int, int) [2188]
+-----------------------------------------------
+                0.00    0.12       1/17          cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+                0.00    0.23       2/17          cv::getKernelType(cv::Mat const&, cv::Point_<int>) [29]
+                0.00    0.23       2/17          cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+                0.00    1.39      12/17          cvConvertScale [6]
+[4]     25.4    0.00    1.97      17         cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+                1.97    0.00      12/12          void cv::cvt_<unsigned char, float>(cv::Mat const&, cv::Mat&) [5]
+                0.00    0.00      17/30          cv::Mat::create(int, int, int) [2182]
+                0.00    0.00       2/2           void cv::cvtScale_<float, cv::OpCvt<float, int> >(cv::Mat const&, cv::Mat&, double, double) [2213]
+                0.00    0.00       2/2           void cv::cvt_<float, double>(cv::Mat const&, cv::Mat&) [2212]
+                0.00    0.00       1/1           void cv::cvtScale_<int, cv::OpCvt<float, float> >(cv::Mat const&, cv::Mat&, double, double) [2265]
+-----------------------------------------------
+                1.97    0.00      12/12          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+[5]     25.4    1.97    0.00      12         void cv::cvt_<unsigned char, float>(cv::Mat const&, cv::Mat&) [5]
+-----------------------------------------------
+                0.00    1.39      12/12          calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[6]     17.9    0.00    1.39      12         cvConvertScale [6]
+                0.00    1.39      12/17          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+                0.00    0.00      24/24          cv::cvarrToMat(void const*, bool, bool, int) [2183]
+-----------------------------------------------
+                0.00    1.39       6/6           calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[7]     17.9    0.00    1.39       6         cvAbsDiff [7]
+                0.00    1.39       6/6           cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&) [8]
+                0.00    0.00      18/18          cv::cvarrToMat(void const*, bool, bool, int) [2187]
+                0.00    0.00      18/19          cv::Mat::release() [2186]
+-----------------------------------------------
+                0.00    1.39       6/6           cvAbsDiff [7]
+[8]     17.9    0.00    1.39       6         cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&) [8]
+                1.39    0.00       6/6           void cv::binaryOpC1_<cv::OpAbsDiff<float>, cv::VBinOp32f<cv::_VAbsDiff32f> >(cv::Mat const&, cv::Mat const&, cv::Mat&) [9]
+                0.00    0.00       6/30          cv::Mat::create(int, int, int) [2182]
+-----------------------------------------------
+                1.39    0.00       6/6           cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&) [8]
+[9]     17.9    1.39    0.00       6         void cv::binaryOpC1_<cv::OpAbsDiff<float>, cv::VBinOp32f<cv::_VAbsDiff32f> >(cv::Mat const&, cv::Mat const&, cv::Mat&) [9]
+-----------------------------------------------
+                0.00    1.22       6/6           calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[10]    15.7    0.00    1.22       6         cvPow [10]
+                0.00    1.22       6/6           cv::pow(cv::Mat const&, double, cv::Mat&) [11]
+                0.00    0.00      12/12          cv::cvarrToMat(void const*, bool, bool, int) [2190]
+-----------------------------------------------
+                0.00    1.22       6/6           cvPow [10]
+[11]    15.7    0.00    1.22       6         cv::pow(cv::Mat const&, double, cv::Mat&) [11]
+                0.00    1.22       6/6           cv::multiply(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [12]
+                0.00    0.00       6/30          cv::Mat::create(int, int, int) [2182]
+-----------------------------------------------
+                0.00    1.22       6/6           cv::pow(cv::Mat const&, double, cv::Mat&) [11]
+[12]    15.7    0.00    1.22       6         cv::multiply(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [12]
+                1.22    0.00       6/6           void cv::mul_<float, float>(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [13]
+-----------------------------------------------
+                1.22    0.00       6/6           cv::multiply(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [12]
+[13]    15.7    1.22    0.00       6         void cv::mul_<float, float>(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [13]
+-----------------------------------------------
+                0.00    1.07       1/1           main [1]
+[14]    13.8    0.00    1.07       1         cvSmooth [14]
+                0.00    1.07       1/1           cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+                0.00    0.00       2/2           cv::cvarrToMat(void const*, bool, bool, int) [2211]
+-----------------------------------------------
+                0.00    1.07       1/1           cvSmooth [14]
+[15]    13.8    0.00    1.07       1         cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+                0.00    0.58       1/1           cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [17]
+                0.00    0.49       1/1           cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool) [19]
+                0.00    0.00       1/22          cv::fastFree(void*) [2185]
+                0.00    0.00       1/1           cv::FilterEngine::~FilterEngine() [2250]
+-----------------------------------------------
+                0.00    0.21       2/6           main [1]
+                0.00    0.41       4/6           SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+[16]     8.0    0.00    0.62       6         cvCvtColor [16]
+                0.35    0.00       2/2           icvBGRx2YCrCb_8u_CnC3R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) [24]
+                0.27    0.00       4/4           icvBGRx2Gray_8u_CnC1R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) [26]
+                0.00    0.00      12/12          cvGetMat [57]
+                0.00    0.00      12/12          cvGetErrStatus [56]
+-----------------------------------------------
+                0.00    0.58       1/1           cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+[17]     7.5    0.00    0.58       1         cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [17]
+                0.00    0.58       1/1           cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+                0.00    0.00       1/1           cv::getGaussianKernel(int, double, int) [2260]
+                0.00    0.00       1/22          cv::fastFree(void*) [2185]
+-----------------------------------------------
+                0.00    0.58       1/1           cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [17]
+[18]     7.5    0.00    0.58       1         cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+                0.00    0.23       2/2           cv::getKernelType(cv::Mat const&, cv::Point_<int>) [29]
+                0.00    0.23       2/17          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+                0.00    0.12       1/1           cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+                0.00    0.00       1/1           cv::getLinearRowFilter(int, int, cv::Mat const&, int, int) [2261]
+                0.00    0.00       1/1           cv::FilterEngine::FilterEngine(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2249]
+                0.00    0.00       1/22          cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.49       1/1           cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+[19]     6.3    0.00    0.49       1         cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool) [19]
+                0.00    0.49       1/1           cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [20]
+                0.00    0.00       1/1           cv::FilterEngine::start(cv::Mat const&, cv::Rect_<int> const&, bool, int) [2248]
+-----------------------------------------------
+                0.00    0.49       1/1           cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool) [19]
+[20]     6.3    0.00    0.49       1         cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [20]
+                0.30    0.00    1000/1000        cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::operator()(unsigned char const**, unsigned char*, int, int, int) [25]
+                0.19    0.00    4000/4000        cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::operator()(unsigned char const*, unsigned char*, int, int) [35]
+                0.00    0.00   14010/14020       cv::borderInterpolate(int, int, int) [2178]
+-----------------------------------------------
+                0.00    0.41      12/12          calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[21]     5.3    0.00    0.41      12         SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+                0.00    0.41       4/6           cvCvtColor [16]
+                0.00    0.00       8/8           cvCloneImage [59]
+                0.00    0.00       4/13          cvSize(int, int) [2188]
+                0.00    0.00       4/33          cvCreateImage [54]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     4.8    0.37    0.00                 memcpy [22]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     4.5    0.35    0.00                 mmap [23]
+-----------------------------------------------
+                0.35    0.00       2/2           cvCvtColor [16]
+[24]     4.5    0.35    0.00       2         icvBGRx2YCrCb_8u_CnC3R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) [24]
+-----------------------------------------------
+                0.30    0.00    1000/1000        cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [20]
+[25]     3.9    0.30    0.00    1000         cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::operator()(unsigned char const**, unsigned char*, int, int, int) [25]
+-----------------------------------------------
+                0.27    0.00       4/4           cvCvtColor [16]
+[26]     3.5    0.27    0.00       4         icvBGRx2Gray_8u_CnC1R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) [26]
+-----------------------------------------------
+                0.00    0.26       6/6           calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[27]     3.3    0.00    0.26       6         cvAvg [27]
+                0.00    0.26       6/6           cv::sum(cv::Mat const&) [28]
+                0.00    0.00       6/6           cv::cvarrToMat(void const*, bool, bool, int) [2197]
+                0.00    0.00       6/6           cvGetImageCOI [61]
+-----------------------------------------------
+                0.00    0.26       6/6           cvAvg [27]
+[28]     3.3    0.00    0.26       6         cv::sum(cv::Mat const&) [28]
+                0.18    0.00       2/2           cv::Scalar_<double> cv::sum_<cv::Vec<float, 3>, cv::Vec<double, 3> >(cv::Mat const&) [38]
+                0.08    0.00       4/4           cv::Scalar_<double> cv::sum_<float, double>(cv::Mat const&) [41]
+-----------------------------------------------
+                0.00    0.23       2/2           cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+[29]     3.0    0.00    0.23       2         cv::getKernelType(cv::Mat const&, cv::Point_<int>) [29]
+                0.00    0.23       2/17          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+                0.00    0.00       2/22          cv::fastFree(void*) [2185]
+-----------------------------------------------
+                                                 <spontaneous>
+[30]     2.8    0.22    0.00                 jpeg_idct_16x16 [30]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     2.8    0.22    0.00                 jpeg_idct_islow [31]
+-----------------------------------------------
+                                                 <spontaneous>
+[32]     2.6    0.20    0.00                 ycc_rgb_convert [32]
+-----------------------------------------------
+                0.00    0.19       2/2           main [1]
+[33]     2.4    0.00    0.19       2         cvLoadImage [33]
+                0.00    0.19       2/2           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+-----------------------------------------------
+                0.19    0.00    8000/8000        cv::JpegDecoder::readData(cv::Mat&) [36]
+[34]     2.4    0.19    0.00    8000         icvCvt_BGR2RGB_8u_C3R(unsigned char const*, int, unsigned char*, int, CvSize) [34]
+-----------------------------------------------
+                0.19    0.00    4000/4000        cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [20]
+[35]     2.4    0.19    0.00    4000         cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::operator()(unsigned char const*, unsigned char*, int, int) [35]
+-----------------------------------------------
+                0.00    0.19       2/2           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[36]     2.4    0.00    0.19       2         cv::JpegDecoder::readData(cv::Mat&) [36]
+                0.19    0.00    8000/8000        icvCvt_BGR2RGB_8u_C3R(unsigned char const*, int, unsigned char*, int, CvSize) [34]
+-----------------------------------------------
+                0.00    0.19       2/2           cvLoadImage [33]
+[37]     2.4    0.00    0.19       2         cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+                0.00    0.19       2/2           cv::JpegDecoder::readData(cv::Mat&) [36]
+                0.00    0.00       2/2           cv::findDecoder(std::string const&) [2207]
+                0.00    0.00       2/2           cv::JpegDecoder::readHeader() [2205]
+                0.00    0.00       2/2           cv::BaseImageDecoder::setSource(std::string const&) [2210]
+                0.00    0.00       2/22          cv::fastFree(void*) [2185]
+                0.00    0.00       2/3           cv::JpegDecoder::~JpegDecoder() [2201]
+                0.00    0.00       2/33          cvCreateImage [54]
+                0.00    0.00       2/3           cv::cvarrToMat(void const*, bool, bool, int) [2203]
+-----------------------------------------------
+                0.18    0.00       2/2           cv::sum(cv::Mat const&) [28]
+[38]     2.3    0.18    0.00       2         cv::Scalar_<double> cv::sum_<cv::Vec<float, 3>, cv::Vec<double, 3> >(cv::Mat const&) [38]
+-----------------------------------------------
+                                                 <spontaneous>
+[39]     2.1    0.16    0.00                 __write_nocancel [39]
+-----------------------------------------------
+                0.00    0.12       1/1           cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+[40]     1.5    0.00    0.12       1         cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+                0.00    0.12       1/17          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+                0.00    0.00       1/1           cv::ColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::ColumnFilter(cv::Mat const&, int, double, cv::FixedPtCastEx<int, unsigned char> const&, cv::SymmColumnVec_32s8u const&) [2245]
+                0.00    0.00       1/22          cv::fastMalloc(unsigned long) [2184]
+                0.00    0.00       1/19          cv::Mat::release() [2186]
+-----------------------------------------------
+                0.08    0.00       4/4           cv::sum(cv::Mat const&) [28]
+[41]     1.0    0.08    0.00       4         cv::Scalar_<double> cv::sum_<float, double>(cv::Mat const&) [41]
+-----------------------------------------------
+                                                 <spontaneous>
+[42]     0.4    0.03    0.00                 brk [42]
+-----------------------------------------------
+                                                 <spontaneous>
+[43]     0.4    0.03    0.00                 decode_mcu [43]
+-----------------------------------------------
+                                                 <spontaneous>
+[44]     0.3    0.02    0.00                 decompress_onepass [44]
+-----------------------------------------------
+                                                 <spontaneous>
+[45]     0.1    0.01    0.00                 memset [45]
+-----------------------------------------------
+                                                 <spontaneous>
+[46]     0.1    0.01    0.00                 __open_nocancel [46]
+-----------------------------------------------
+                                                 <spontaneous>
+[47]     0.1    0.01    0.00                 __read_nocancel [47]
+-----------------------------------------------
+                0.00    0.00      41/123         cvReleaseData [51]
+                0.00    0.00      82/123         cvReleaseImageHeader [53]
+[48]     0.0    0.00    0.00     123         cvFree_ [48]
+-----------------------------------------------
+                0.00    0.00       8/82          cvCloneImage [59]
+                0.00    0.00      33/82          cvCreateImage [54]
+                0.00    0.00      41/82          cvCreateData [50]
+[49]     0.0    0.00    0.00      82         cvAlloc [49]
+-----------------------------------------------
+                0.00    0.00       8/41          cvCloneImage [59]
+                0.00    0.00      33/41          cvCreateImage [54]
+[50]     0.0    0.00    0.00      41         cvCreateData [50]
+                0.00    0.00      41/82          cvAlloc [49]
+-----------------------------------------------
+                0.00    0.00      41/41          cvReleaseImage [52]
+[51]     0.0    0.00    0.00      41         cvReleaseData [51]
+                0.00    0.00      41/123         cvFree_ [48]
+-----------------------------------------------
+                0.00    0.00       5/41          main [1]
+                0.00    0.00      36/41          calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[52]     0.0    0.00    0.00      41         cvReleaseImage [52]
+                0.00    0.00      41/41          cvReleaseImageHeader [53]
+                0.00    0.00      41/41          cvReleaseData [51]
+-----------------------------------------------
+                0.00    0.00      41/41          cvReleaseImage [52]
+[53]     0.0    0.00    0.00      41         cvReleaseImageHeader [53]
+                0.00    0.00      82/123         cvFree_ [48]
+-----------------------------------------------
+                0.00    0.00       2/33          cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+                0.00    0.00       3/33          main [1]
+                0.00    0.00       4/33          SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+                0.00    0.00      24/33          calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[54]     0.0    0.00    0.00      33         cvCreateImage [54]
+                0.00    0.00      33/41          cvCreateData [50]
+                0.00    0.00      33/82          cvAlloc [49]
+                0.00    0.00      33/33          cvInitImageHeader [55]
+-----------------------------------------------
+                0.00    0.00      33/33          cvCreateImage [54]
+[55]     0.0    0.00    0.00      33         cvInitImageHeader [55]
+-----------------------------------------------
+                0.00    0.00      12/12          cvCvtColor [16]
+[56]     0.0    0.00    0.00      12         cvGetErrStatus [56]
+-----------------------------------------------
+                0.00    0.00      12/12          cvCvtColor [16]
+[57]     0.0    0.00    0.00      12         cvGetMat [57]
+                0.00    0.00      12/12          cvInitMatHeader [58]
+-----------------------------------------------
+                0.00    0.00      12/12          cvGetMat [57]
+[58]     0.0    0.00    0.00      12         cvInitMatHeader [58]
+-----------------------------------------------
+                0.00    0.00       8/8           SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+[59]     0.0    0.00    0.00       8         cvCloneImage [59]
+                0.00    0.00       8/82          cvAlloc [49]
+                0.00    0.00       8/41          cvCreateData [50]
+-----------------------------------------------
+                0.00    0.00       7/7           CvType::CvType(char const*, int (*)(void const*), void (*)(void**), void* (*)(CvFileStorage*, CvFileNode*), void (*)(CvFileStorage*, char const*, void const*, CvAttrList), void* (*)(void const*)) [2193]
+[60]     0.0    0.00    0.00       7         cvRegisterType [60]
+-----------------------------------------------
+                0.00    0.00       6/6           cvAvg [27]
+[61]     0.0    0.00    0.00       6         cvGetImageCOI [61]
+-----------------------------------------------
+                0.00    0.00       1/1           global constructors keyed to _ZN2cv16useOptimizedFlagE [2221]
+[62]     0.0    0.00    0.00       1         cvRegisterModule [62]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[63]     0.0    0.00    0.00       1         cvSaveImage [63]
+                0.00    0.00       1/3           cv::cvarrToMat(void const*, bool, bool, int) [2203]
+                0.00    0.00       1/1           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+-----------------------------------------------
+                0.00    0.00       1/1           global constructors keyed to _ZN2cv11findDecoderERKSs [2220]
+[64]     0.0    0.00    0.00       1         cvSetImageIOFunctions [64]
+-----------------------------------------------
+                0.00    0.00      10/14020       cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+                0.00    0.00   14010/14020       cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [20]
+[2178]   0.0    0.00    0.00   14020         cv::borderInterpolate(int, int, int) [2178]
+-----------------------------------------------
+                0.00    0.00    4001/4001        cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2179]   0.0    0.00    0.00    4001         cv::WLByteStream::putBytes(void const*, int) [2179]
+                0.00    0.00    1464/1465        cv::WBaseStream::writeBlock() [2180]
+-----------------------------------------------
+                0.00    0.00       1/1465        cv::WBaseStream::close() [2206]
+                0.00    0.00    1464/1465        cv::WLByteStream::putBytes(void const*, int) [2179]
+[2180]   0.0    0.00    0.00    1465         cv::WBaseStream::writeBlock() [2180]
+-----------------------------------------------
+                0.00    0.00       2/65          cv::cvarrToMat(void const*, bool, bool, int) [2211]
+                0.00    0.00       3/65          cv::cvarrToMat(void const*, bool, bool, int) [2203]
+                0.00    0.00       6/65          cv::cvarrToMat(void const*, bool, bool, int) [2197]
+                0.00    0.00      12/65          cv::cvarrToMat(void const*, bool, bool, int) [2190]
+                0.00    0.00      18/65          cv::cvarrToMat(void const*, bool, bool, int) [2187]
+                0.00    0.00      24/65          cv::cvarrToMat(void const*, bool, bool, int) [2183]
+[2181]   0.0    0.00    0.00      65         cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       1/30          cv::getGaussianKernel(int, double, int) [2260]
+                0.00    0.00       6/30          cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&) [8]
+                0.00    0.00       6/30          cv::pow(cv::Mat const&, double, cv::Mat&) [11]
+                0.00    0.00      17/30          cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+[2182]   0.0    0.00    0.00      30         cv::Mat::create(int, int, int) [2182]
+                0.00    0.00       6/22          cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.00      24/24          cvConvertScale [6]
+[2183]   0.0    0.00    0.00      24         cv::cvarrToMat(void const*, bool, bool, int) [2183]
+                0.00    0.00      24/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       1/22          cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+                0.00    0.00       1/22          cv::getLinearRowFilter(int, int, cv::Mat const&, int, int) [2261]
+                0.00    0.00       1/22          cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+                0.00    0.00       1/22          cv::BmpEncoder::newEncoder() const [2268]
+                0.00    0.00       2/22          cv::JpegDecoder::newDecoder() const [2215]
+                0.00    0.00       6/22          cv::Mat::create(int, int, int) [2182]
+                0.00    0.00      10/22          cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2184]   0.0    0.00    0.00      22         cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.00       1/22          cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [17]
+                0.00    0.00       1/22          cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+                0.00    0.00       1/22          cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::~RowFilter() [2263]
+                0.00    0.00       1/22          cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+                0.00    0.00       2/22          cv::FilterEngine::~FilterEngine() [2250]
+                0.00    0.00       2/22          cv::getKernelType(cv::Mat const&, cv::Point_<int>) [29]
+                0.00    0.00       2/22          cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::~SymmColumnFilter() [2259]
+                0.00    0.00       2/22          cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+                0.00    0.00       5/22          std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+                0.00    0.00       5/22          std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+[2185]   0.0    0.00    0.00      22         cv::fastFree(void*) [2185]
+-----------------------------------------------
+                0.00    0.00       1/19          cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+                0.00    0.00      18/19          cvAbsDiff [7]
+[2186]   0.0    0.00    0.00      19         cv::Mat::release() [2186]
+-----------------------------------------------
+                0.00    0.00      18/18          cvAbsDiff [7]
+[2187]   0.0    0.00    0.00      18         cv::cvarrToMat(void const*, bool, bool, int) [2187]
+                0.00    0.00      18/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       3/13          main [1]
+                0.00    0.00       4/13          SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [21]
+                0.00    0.00       6/13          calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [3]
+[2188]   0.0    0.00    0.00      13         cvSize(int, int) [2188]
+-----------------------------------------------
+                0.00    0.00      12/12          cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2189]   0.0    0.00    0.00      12         cv::WLByteStream::putDWord(int) [2189]
+-----------------------------------------------
+                0.00    0.00      12/12          cvPow [10]
+[2190]   0.0    0.00    0.00      12         cv::cvarrToMat(void const*, bool, bool, int) [2190]
+                0.00    0.00      12/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       4/10          cv::BaseImageDecoder::checkSignature(std::string const&) const [2198]
+                0.00    0.00       6/10          cv::findDecoder(std::string const&) [2207]
+[2191]   0.0    0.00    0.00      10         cv::BaseImageDecoder::signatureLength() const [2191]
+-----------------------------------------------
+                0.00    0.00       1/7           cv::JpegDecoder::JpegDecoder() [2233]
+                0.00    0.00       1/7           cv::TiffDecoder::TiffDecoder() [2237]
+                0.00    0.00       1/7           cv::BmpDecoder::BmpDecoder() [2225]
+                0.00    0.00       1/7           cv::SunRasterDecoder::SunRasterDecoder() [2255]
+                0.00    0.00       1/7           cv::PxMDecoder::PxMDecoder() [2229]
+                0.00    0.00       2/7           cv::JpegDecoder::newDecoder() const [2215]
+[2192]   0.0    0.00    0.00       7         cv::BaseImageDecoder::BaseImageDecoder() [2192]
+-----------------------------------------------
+                0.00    0.00       7/7           global constructors keyed to _ZN2cv11FileStorage20getDefaultObjectNameERKSs [2218]
+[2193]   0.0    0.00    0.00       7         CvType::CvType(char const*, int (*)(void const*), void (*)(void**), void* (*)(CvFileStorage*, CvFileNode*), void (*)(CvFileStorage*, char const*, void const*, CvAttrList), void* (*)(void const*)) [2193]
+                0.00    0.00       7/7           cvRegisterType [60]
+-----------------------------------------------
+                0.00    0.00       7/7           __run_exit_handlers [6952]
+[2194]   0.0    0.00    0.00       7         CvType::~CvType() [2194]
+-----------------------------------------------
+                0.00    0.00       6/6           main [1]
+[2195]   0.0    0.00    0.00       6         CoreFunctions::printCvScalar(CvScalar, Colorspace, int) [2195]
+-----------------------------------------------
+                0.00    0.00       1/6           cv::JpegEncoder::JpegEncoder() [2234]
+                0.00    0.00       1/6           cv::TiffEncoder::TiffEncoder() [2239]
+                0.00    0.00       1/6           cv::BmpEncoder::BmpEncoder() [2228]
+                0.00    0.00       1/6           cv::BmpEncoder::newEncoder() const [2268]
+                0.00    0.00       1/6           cv::SunRasterEncoder::SunRasterEncoder() [2257]
+                0.00    0.00       1/6           cv::PxMEncoder::PxMEncoder() [2231]
+[2196]   0.0    0.00    0.00       6         cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       6/6           cvAvg [27]
+[2197]   0.0    0.00    0.00       6         cv::cvarrToMat(void const*, bool, bool, int) [2197]
+                0.00    0.00       6/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       4/4           cv::findDecoder(std::string const&) [2207]
+[2198]   0.0    0.00    0.00       4         cv::BaseImageDecoder::checkSignature(std::string const&) const [2198]
+                0.00    0.00       4/10          cv::BaseImageDecoder::signatureLength() const [2191]
+-----------------------------------------------
+                0.00    0.00       4/4           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2199]   0.0    0.00    0.00       4         std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageDecoder>*, std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > > >, cv::Ptr<cv::BaseImageDecoder> const&) [2199]
+-----------------------------------------------
+                0.00    0.00       4/4           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2200]   0.0    0.00    0.00       4         std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageEncoder>*, std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > > >, cv::Ptr<cv::BaseImageEncoder> const&) [2200]
+-----------------------------------------------
+                0.00    0.00       1/3           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+                0.00    0.00       2/3           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[2201]   0.0    0.00    0.00       3         cv::JpegDecoder::~JpegDecoder() [2201]
+-----------------------------------------------
+                0.00    0.00       1/3           cv::BmpDecoder::BmpDecoder() [2225]
+                0.00    0.00       1/3           cv::SunRasterDecoder::SunRasterDecoder() [2255]
+                0.00    0.00       1/3           cv::PxMDecoder::PxMDecoder() [2229]
+[2202]   0.0    0.00    0.00       3         cv::RBaseStream::RBaseStream() [2202]
+-----------------------------------------------
+                0.00    0.00       1/3           cvSaveImage [63]
+                0.00    0.00       2/3           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[2203]   0.0    0.00    0.00       3         cv::cvarrToMat(void const*, bool, bool, int) [2203]
+                0.00    0.00       3/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       1/2           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+                0.00    0.00       1/2           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+[2204]   0.0    0.00    0.00       2         cv::BmpEncoder::~BmpEncoder() [2204]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[2205]   0.0    0.00    0.00       2         cv::JpegDecoder::readHeader() [2205]
+-----------------------------------------------
+                0.00    0.00       1/2           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+                0.00    0.00       1/2           cv::WBaseStream::open(std::string const&) [2241]
+[2206]   0.0    0.00    0.00       2         cv::WBaseStream::close() [2206]
+                0.00    0.00       1/1465        cv::WBaseStream::writeBlock() [2180]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[2207]   0.0    0.00    0.00       2         cv::findDecoder(std::string const&) [2207]
+                0.00    0.00       6/10          cv::BaseImageDecoder::signatureLength() const [2191]
+                0.00    0.00       4/4           cv::BaseImageDecoder::checkSignature(std::string const&) const [2198]
+                0.00    0.00       2/2           cv::TiffDecoder::signatureLength() const [2216]
+                0.00    0.00       2/2           cv::PxMDecoder::signatureLength() const [2214]
+                0.00    0.00       2/2           cv::JpegDecoder::newDecoder() const [2215]
+-----------------------------------------------
+                0.00    0.00       1/2           cv::BmpDecoder::~BmpDecoder() [2226]
+                0.00    0.00       1/2           cv::PxMDecoder::~PxMDecoder() [2230]
+[2208]   0.0    0.00    0.00       2         cv::RLByteStream::~RLByteStream() [2208]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2209]   0.0    0.00    0.00       2         cv::WLByteStream::putWord(int) [2209]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::imread_(std::string const&, int, int, cv::Mat*) [37]
+[2210]   0.0    0.00    0.00       2         cv::BaseImageDecoder::setSource(std::string const&) [2210]
+-----------------------------------------------
+                0.00    0.00       2/2           cvSmooth [14]
+[2211]   0.0    0.00    0.00       2         cv::cvarrToMat(void const*, bool, bool, int) [2211]
+                0.00    0.00       2/65          cv::Mat::Mat(_IplImage const*, bool) [2181]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+[2212]   0.0    0.00    0.00       2         void cv::cvt_<float, double>(cv::Mat const&, cv::Mat&) [2212]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+[2213]   0.0    0.00    0.00       2         void cv::cvtScale_<float, cv::OpCvt<float, int> >(cv::Mat const&, cv::Mat&, double, double) [2213]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::findDecoder(std::string const&) [2207]
+[2214]   0.0    0.00    0.00       2         cv::PxMDecoder::signatureLength() const [2214]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::findDecoder(std::string const&) [2207]
+[2215]   0.0    0.00    0.00       2         cv::JpegDecoder::newDecoder() const [2215]
+                0.00    0.00       2/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+                0.00    0.00       2/22          cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::findDecoder(std::string const&) [2207]
+[2216]   0.0    0.00    0.00       2         cv::TiffDecoder::signatureLength() const [2216]
+-----------------------------------------------
+                0.00    0.00       2/2           cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+[2217]   0.0    0.00    0.00       2         std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned long, unsigned char const&) [2217]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [6765]
+[2218]   0.0    0.00    0.00       1         global constructors keyed to _ZN2cv11FileStorage20getDefaultObjectNameERKSs [2218]
+                0.00    0.00       7/7           CvType::CvType(char const*, int (*)(void const*), void (*)(void**), void* (*)(CvFileStorage*, CvFileNode*), void (*)(CvFileStorage*, char const*, void const*, CvAttrList), void* (*)(void const*)) [2193]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [6765]
+[2219]   0.0    0.00    0.00       1         global constructors keyed to _ZN2cv11bitwise_andERKNS_3MatES2_RS0_S2_ [2219]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [6765]
+[2220]   0.0    0.00    0.00       1         global constructors keyed to _ZN2cv11findDecoderERKSs [2220]
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+                0.00    0.00       1/1           cvSetImageIOFunctions [64]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [6765]
+[2221]   0.0    0.00    0.00       1         global constructors keyed to _ZN2cv16useOptimizedFlagE [2221]
+                0.00    0.00       1/1           cvRegisterModule [62]
+-----------------------------------------------
+                0.00    0.00       1/1           __do_global_ctors_aux [6765]
+[2222]   0.0    0.00    0.00       1         global constructors keyed to main [2222]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [2223]
+-----------------------------------------------
+                0.00    0.00       1/1           global constructors keyed to main [2222]
+[2223]   0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [2223]
+-----------------------------------------------
+                0.00    0.00       1/1           calcPSNR::calcPSNR() [2267]
+[2224]   0.0    0.00    0.00       1         SimilarityMetric::SimilarityMetric() [2224]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2225]   0.0    0.00    0.00       1         cv::BmpDecoder::BmpDecoder() [2225]
+                0.00    0.00       1/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+                0.00    0.00       1/3           cv::RBaseStream::RBaseStream() [2202]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+[2226]   0.0    0.00    0.00       1         cv::BmpDecoder::~BmpDecoder() [2226]
+                0.00    0.00       1/2           cv::RLByteStream::~RLByteStream() [2208]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+[2227]   0.0    0.00    0.00       1         cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+                0.00    0.00    4001/4001        cv::WLByteStream::putBytes(void const*, int) [2179]
+                0.00    0.00      12/12          cv::WLByteStream::putDWord(int) [2189]
+                0.00    0.00       2/2           cv::WLByteStream::putWord(int) [2209]
+                0.00    0.00       1/1           cv::WBaseStream::WBaseStream() [2243]
+                0.00    0.00       1/2           cv::WBaseStream::close() [2206]
+                0.00    0.00       1/1           cv::WLByteStream::~WLByteStream() [2252]
+                0.00    0.00       1/1           cv::WBaseStream::open(std::string const&) [2241]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2228]   0.0    0.00    0.00       1         cv::BmpEncoder::BmpEncoder() [2228]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2229]   0.0    0.00    0.00       1         cv::PxMDecoder::PxMDecoder() [2229]
+                0.00    0.00       1/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+                0.00    0.00       1/3           cv::RBaseStream::RBaseStream() [2202]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+[2230]   0.0    0.00    0.00       1         cv::PxMDecoder::~PxMDecoder() [2230]
+                0.00    0.00       1/1           cv::RBaseStream::close() [2236]
+                0.00    0.00       1/2           cv::RLByteStream::~RLByteStream() [2208]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2231]   0.0    0.00    0.00       1         cv::PxMEncoder::PxMEncoder() [2231]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+[2232]   0.0    0.00    0.00       1         cv::PxMEncoder::~PxMEncoder() [2232]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2233]   0.0    0.00    0.00       1         cv::JpegDecoder::JpegDecoder() [2233]
+                0.00    0.00       1/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2234]   0.0    0.00    0.00       1         cv::JpegEncoder::JpegEncoder() [2234]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+[2235]   0.0    0.00    0.00       1         cv::JpegEncoder::~JpegEncoder() [2235]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::PxMDecoder::~PxMDecoder() [2230]
+[2236]   0.0    0.00    0.00       1         cv::RBaseStream::close() [2236]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2237]   0.0    0.00    0.00       1         cv::TiffDecoder::TiffDecoder() [2237]
+                0.00    0.00       1/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+[2238]   0.0    0.00    0.00       1         cv::TiffDecoder::~TiffDecoder() [2238]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2239]   0.0    0.00    0.00       1         cv::TiffEncoder::TiffEncoder() [2239]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+[2240]   0.0    0.00    0.00       1         cv::TiffEncoder::~TiffEncoder() [2240]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2241]   0.0    0.00    0.00       1         cv::WBaseStream::open(std::string const&) [2241]
+                0.00    0.00       1/2           cv::WBaseStream::close() [2206]
+                0.00    0.00       1/1           cv::WBaseStream::allocate() [2242]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::WBaseStream::open(std::string const&) [2241]
+[2242]   0.0    0.00    0.00       1         cv::WBaseStream::allocate() [2242]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2243]   0.0    0.00    0.00       1         cv::WBaseStream::WBaseStream() [2243]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+[2244]   0.0    0.00    0.00       1         cv::findEncoder(std::string const&) [2244]
+                0.00    0.00       1/1           cv::BaseImageEncoder::getDescription() const [2269]
+                0.00    0.00       1/1           cv::BmpEncoder::newEncoder() const [2268]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [40]
+[2245]   0.0    0.00    0.00       1         cv::ColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::ColumnFilter(cv::Mat const&, int, double, cv::FixedPtCastEx<int, unsigned char> const&, cv::SymmColumnVec_32s8u const&) [2245]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::FilterEngine(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2249]
+[2246]   0.0    0.00    0.00       1         cv::FilterEngine::init(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2246]
+                0.00    0.00       1/1           std::vector<int, std::allocator<int> >::_M_fill_insert(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, unsigned long, int const&) [2274]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::start(cv::Mat const&, cv::Rect_<int> const&, bool, int) [2248]
+[2247]   0.0    0.00    0.00       1         cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+                0.00    0.00      10/14020       cv::borderInterpolate(int, int, int) [2178]
+                0.00    0.00       2/2           std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned long, unsigned char const&) [2217]
+                0.00    0.00       1/1           std::vector<unsigned char*, std::allocator<unsigned char*> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char**, std::vector<unsigned char*, std::allocator<unsigned char*> > >, unsigned long, unsigned char* const&) [2273]
+                0.00    0.00       1/1           cv::BaseColumnFilter::reset() [2253]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool) [19]
+[2248]   0.0    0.00    0.00       1         cv::FilterEngine::start(cv::Mat const&, cv::Rect_<int> const&, bool, int) [2248]
+                0.00    0.00       1/1           cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+[2249]   0.0    0.00    0.00       1         cv::FilterEngine::FilterEngine(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2249]
+                0.00    0.00       1/1           cv::FilterEngine::init(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2246]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [15]
+[2250]   0.0    0.00    0.00       1         cv::FilterEngine::~FilterEngine() [2250]
+                0.00    0.00       2/22          cv::fastFree(void*) [2185]
+                0.00    0.00       1/1           cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::~RowFilter() [2263]
+                0.00    0.00       1/1           cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::~SymmColumnFilter() [2259]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::SunRasterDecoder::~SunRasterDecoder() [2256]
+[2251]   0.0    0.00    0.00       1         cv::RMByteStream::~RMByteStream() [2251]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+[2252]   0.0    0.00    0.00       1         cv::WLByteStream::~WLByteStream() [2252]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+[2253]   0.0    0.00    0.00       1         cv::BaseColumnFilter::reset() [2253]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+[2254]   0.0    0.00    0.00       1         cv::BaseImageEncoder::setDestination(std::string const&) [2254]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2255]   0.0    0.00    0.00       1         cv::SunRasterDecoder::SunRasterDecoder() [2255]
+                0.00    0.00       1/7           cv::BaseImageDecoder::BaseImageDecoder() [2192]
+                0.00    0.00       1/3           cv::RBaseStream::RBaseStream() [2202]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+[2256]   0.0    0.00    0.00       1         cv::SunRasterDecoder::~SunRasterDecoder() [2256]
+                0.00    0.00       1/1           cv::RMByteStream::~RMByteStream() [2251]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+[2257]   0.0    0.00    0.00       1         cv::SunRasterEncoder::SunRasterEncoder() [2257]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+[2258]   0.0    0.00    0.00       1         cv::SunRasterEncoder::~SunRasterEncoder() [2258]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::~FilterEngine() [2250]
+[2259]   0.0    0.00    0.00       1         cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::~SymmColumnFilter() [2259]
+                0.00    0.00       2/22          cv::fastFree(void*) [2185]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [17]
+[2260]   0.0    0.00    0.00       1         cv::getGaussianKernel(int, double, int) [2260]
+                0.00    0.00       1/30          cv::Mat::create(int, int, int) [2182]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [18]
+[2261]   0.0    0.00    0.00       1         cv::getLinearRowFilter(int, int, cv::Mat const&, int, int) [2261]
+                0.00    0.00       1/22          cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.00       1/1           global constructors keyed to _ZN2cv11findDecoderERKSs [2220]
+[2262]   0.0    0.00    0.00       1         cv::ImageCodecInitializer::ImageCodecInitializer() [2262]
+                0.00    0.00      10/22          cv::fastMalloc(unsigned long) [2184]
+                0.00    0.00       4/4           std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageEncoder>*, std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > > >, cv::Ptr<cv::BaseImageEncoder> const&) [2200]
+                0.00    0.00       4/4           std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageDecoder>*, std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > > >, cv::Ptr<cv::BaseImageDecoder> const&) [2199]
+                0.00    0.00       1/1           cv::BmpDecoder::BmpDecoder() [2225]
+                0.00    0.00       1/1           cv::BmpEncoder::BmpEncoder() [2228]
+                0.00    0.00       1/1           cv::JpegDecoder::JpegDecoder() [2233]
+                0.00    0.00       1/1           cv::JpegEncoder::JpegEncoder() [2234]
+                0.00    0.00       1/1           cv::SunRasterDecoder::SunRasterDecoder() [2255]
+                0.00    0.00       1/1           cv::SunRasterEncoder::SunRasterEncoder() [2257]
+                0.00    0.00       1/1           cv::PxMDecoder::PxMDecoder() [2229]
+                0.00    0.00       1/1           cv::PxMEncoder::PxMEncoder() [2231]
+                0.00    0.00       1/1           cv::TiffDecoder::TiffDecoder() [2237]
+                0.00    0.00       1/1           cv::TiffEncoder::TiffEncoder() [2239]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::~FilterEngine() [2250]
+[2263]   0.0    0.00    0.00       1         cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::~RowFilter() [2263]
+                0.00    0.00       1/22          cv::fastFree(void*) [2185]
+-----------------------------------------------
+                0.00    0.00       1/1           cvSaveImage [63]
+[2264]   0.0    0.00    0.00       1         cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+                0.00    0.00       1/1           cv::findEncoder(std::string const&) [2244]
+                0.00    0.00       1/1           cv::BaseImageEncoder::isFormatSupported(int) const [2270]
+                0.00    0.00       1/1           cv::BaseImageEncoder::setDestination(std::string const&) [2254]
+                0.00    0.00       1/1           cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2227]
+                0.00    0.00       1/22          cv::fastFree(void*) [2185]
+                0.00    0.00       1/2           cv::BmpEncoder::~BmpEncoder() [2204]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::Mat::convertTo(cv::Mat&, int, double, double) const [4]
+[2265]   0.0    0.00    0.00       1         void cv::cvtScale_<int, cv::OpCvt<float, float> >(cv::Mat const&, cv::Mat&, double, double) [2265]
+-----------------------------------------------
+                0.00    0.00       1/1           __run_exit_handlers [6952]
+[2266]   0.0    0.00    0.00       1         CvModule::~CvModule() [2266]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[2267]   0.0    0.00    0.00       1         calcPSNR::calcPSNR() [2267]
+                0.00    0.00       1/1           SimilarityMetric::SimilarityMetric() [2224]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::findEncoder(std::string const&) [2244]
+[2268]   0.0    0.00    0.00       1         cv::BmpEncoder::newEncoder() const [2268]
+                0.00    0.00       1/6           cv::BaseImageEncoder::BaseImageEncoder() [2196]
+                0.00    0.00       1/22          cv::fastMalloc(unsigned long) [2184]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::findEncoder(std::string const&) [2244]
+[2269]   0.0    0.00    0.00       1         cv::BaseImageEncoder::getDescription() const [2269]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) [2264]
+[2270]   0.0    0.00    0.00       1         cv::BaseImageEncoder::isFormatSupported(int) const [2270]
+-----------------------------------------------
+                0.00    0.00       1/1           __run_exit_handlers [6952]
+[2271]   0.0    0.00    0.00       1         std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector() [2271]
+                0.00    0.00       5/22          cv::fastFree(void*) [2185]
+                0.00    0.00       1/1           cv::TiffDecoder::~TiffDecoder() [2238]
+                0.00    0.00       1/1           cv::PxMDecoder::~PxMDecoder() [2230]
+                0.00    0.00       1/1           cv::SunRasterDecoder::~SunRasterDecoder() [2256]
+                0.00    0.00       1/3           cv::JpegDecoder::~JpegDecoder() [2201]
+                0.00    0.00       1/1           cv::BmpDecoder::~BmpDecoder() [2226]
+-----------------------------------------------
+                0.00    0.00       1/1           __run_exit_handlers [6952]
+[2272]   0.0    0.00    0.00       1         std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector() [2272]
+                0.00    0.00       5/22          cv::fastFree(void*) [2185]
+                0.00    0.00       1/1           cv::TiffEncoder::~TiffEncoder() [2240]
+                0.00    0.00       1/1           cv::PxMEncoder::~PxMEncoder() [2232]
+                0.00    0.00       1/1           cv::SunRasterEncoder::~SunRasterEncoder() [2258]
+                0.00    0.00       1/1           cv::JpegEncoder::~JpegEncoder() [2235]
+                0.00    0.00       1/2           cv::BmpEncoder::~BmpEncoder() [2204]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2247]
+[2273]   0.0    0.00    0.00       1         std::vector<unsigned char*, std::allocator<unsigned char*> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char**, std::vector<unsigned char*, std::allocator<unsigned char*> > >, unsigned long, unsigned char* const&) [2273]
+-----------------------------------------------
+                0.00    0.00       1/1           cv::FilterEngine::init(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2246]
+[2274]   0.0    0.00    0.00       1         std::vector<int, std::allocator<int> >::_M_fill_insert(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, unsigned long, int const&) [2274]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+ [2218] global constructors keyed to _ZN2cv11FileStorage20getDefaultObjectNameERKSs (cxpersistence.cpp) [2179] cv::WLByteStream::putBytes(void const*, int) [2214] cv::PxMDecoder::signatureLength() const
+ [2219] global constructors keyed to _ZN2cv11bitwise_andERKNS_3MatES2_RS0_S2_ (cxarithm.cpp) [2189] cv::WLByteStream::putDWord(int) [2215] cv::JpegDecoder::newDecoder() const
+ [2220] global constructors keyed to _ZN2cv11findDecoderERKSs (loadsave.cpp) [2252] cv::WLByteStream::~WLByteStream() [2216] cv::TiffDecoder::signatureLength() const
+ [2221] global constructors keyed to _ZN2cv16useOptimizedFlagE (cxsystem.cpp) [29] cv::getKernelType(cv::Mat const&, cv::Point_<int>) [2198] cv::BaseImageDecoder::checkSignature(std::string const&) const
+ [2222] global constructors keyed to main (metric.cpp) [2253] cv::BaseColumnFilter::reset() [2191] cv::BaseImageDecoder::signatureLength() const
+  [34] icvCvt_BGR2RGB_8u_C3R(unsigned char const*, int, unsigned char*, int, CvSize) [2210] cv::BaseImageDecoder::setSource(std::string const&) [2269] cv::BaseImageEncoder::getDescription() const
+ [2223] __static_initialization_and_destruction_0(int, int) (metric.cpp) [2192] cv::BaseImageDecoder::BaseImageDecoder() [2270] cv::BaseImageEncoder::isFormatSupported(int) const
+ [2188] cvSize(int, int)    [2254] cv::BaseImageEncoder::setDestination(std::string const&) [4] cv::Mat::convertTo(cv::Mat&, int, double, double) const
+  [26] icvBGRx2Gray_8u_CnC1R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) (cvcolor.cpp) [2196] cv::BaseImageEncoder::BaseImageEncoder() [2199] std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageDecoder>*, std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > > >, cv::Ptr<cv::BaseImageDecoder> const&)
+  [24] icvBGRx2YCrCb_8u_CnC3R(unsigned char const*, int, unsigned char*, int, CvSize, int, int) (cvcolor.cpp) [2255] cv::SunRasterDecoder::SunRasterDecoder() [2271] std::vector<cv::Ptr<cv::BaseImageDecoder>, std::allocator<cv::Ptr<cv::BaseImageDecoder> > >::~vector()
+ [2195] CoreFunctions::printCvScalar(CvScalar, Colorspace, int) [2256] cv::SunRasterDecoder::~SunRasterDecoder() [2200] std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::_M_insert_aux(__gnu_cxx::__normal_iterator<cv::Ptr<cv::BaseImageEncoder>*, std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > > >, cv::Ptr<cv::BaseImageEncoder> const&)
+  [21] SimilarityMetric::colorspaceConversion(_IplImage*, Colorspace) [2257] cv::SunRasterEncoder::SunRasterEncoder() [2272] std::vector<cv::Ptr<cv::BaseImageEncoder>, std::allocator<cv::Ptr<cv::BaseImageEncoder> > >::~vector()
+ [2224] SimilarityMetric::SimilarityMetric() [2258] cv::SunRasterEncoder::~SunRasterEncoder() [2273] std::vector<unsigned char*, std::allocator<unsigned char*> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char**, std::vector<unsigned char*, std::allocator<unsigned char*> > >, unsigned long, unsigned char* const&)
+ [2225] cv::BmpDecoder::BmpDecoder() [2259] cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::~SymmColumnFilter() [2217] std::vector<unsigned char, std::allocator<unsigned char> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned char*, std::vector<unsigned char, std::allocator<unsigned char> > >, unsigned long, unsigned char const&)
+ [2226] cv::BmpDecoder::~BmpDecoder() [25] cv::SymmColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::operator()(unsigned char const**, unsigned char*, int, int, int) [2274] std::vector<int, std::allocator<int> >::_M_fill_insert(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, unsigned long, int const&)
+ [2227] cv::BmpEncoder::write(cv::Mat const&, std::vector<int, std::allocator<int> > const&) [2178] cv::borderInterpolate(int, int, int) [46] __open_nocancel
+ [2228] cv::BmpEncoder::BmpEncoder() [2260] cv::getGaussianKernel(int, double, int) [47] __read_nocancel
+ [2204] cv::BmpEncoder::~BmpEncoder() [2261] cv::getLinearRowFilter(int, int, cv::Mat const&, int, int) [39] __write_nocancel
+ [2229] cv::PxMDecoder::PxMDecoder() [17] cv::createGaussianFilter(int, cv::Size_<int>, double, double, int) [42] brk
+ [2230] cv::PxMDecoder::~PxMDecoder() [2262] cv::ImageCodecInitializer::ImageCodecInitializer() [7] cvAbsDiff
+ [2231] cv::PxMEncoder::PxMEncoder() [40] cv::getLinearColumnFilter(int, int, cv::Mat const&, int, int, double, int) [49] cvAlloc
+ [2232] cv::PxMEncoder::~PxMEncoder() [18] cv::createSeparableLinearFilter(int, int, cv::Mat const&, cv::Mat const&, cv::Point_<int>, double, int, int, cv::Scalar_<double> const&) [27] cvAvg
+ [2184] cv::fastMalloc(unsigned long) [2182] cv::Mat::create(int, int, int) [59] cvCloneImage
+ [2205] cv::JpegDecoder::readHeader() [2186] cv::Mat::release() [6] cvConvertScale
+  [36] cv::JpegDecoder::readData(cv::Mat&) [2181] cv::Mat::Mat(_IplImage const*, bool) [50] cvCreateData
+ [2233] cv::JpegDecoder::JpegDecoder() [11] cv::pow(cv::Mat const&, double, cv::Mat&) [54] cvCreateImage
+ [2201] cv::JpegDecoder::~JpegDecoder() [28] cv::sum(cv::Mat const&) [16] cvCvtColor
+ [2234] cv::JpegEncoder::JpegEncoder() [8] cv::absdiff(cv::Mat const&, cv::Mat const&, cv::Mat&) [48] cvFree_
+ [2235] cv::JpegEncoder::~JpegEncoder() [2185] cv::fastFree(void*) [56] cvGetErrStatus
+ [2236] cv::RBaseStream::close() [12] cv::multiply(cv::Mat const&, cv::Mat const&, cv::Mat&, double) [61] cvGetImageCOI
+ [2202] cv::RBaseStream::RBaseStream() [2263] cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::~RowFilter() [57] cvGetMat
+ [2237] cv::TiffDecoder::TiffDecoder() [35] cv::RowFilter<unsigned char, int, cv::RowVec_8u32s>::operator()(unsigned char const*, unsigned char*, int, int) [55] cvInitImageHeader
+ [2238] cv::TiffDecoder::~TiffDecoder() [2211] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [58] cvInitMatHeader
+ [2239] cv::TiffEncoder::TiffEncoder() [2203] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [33] cvLoadImage
+ [2240] cv::TiffEncoder::~TiffEncoder() [2187] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [10] cvPow
+ [2180] cv::WBaseStream::writeBlock() [2183] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [62] cvRegisterModule
+ [2241] cv::WBaseStream::open(std::string const&) [2197] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [60] cvRegisterType
+ [2206] cv::WBaseStream::close() [2190] cv::cvarrToMat(void const*, bool, bool, int) (cxmat.hpp) [51] cvReleaseData
+ [2242] cv::WBaseStream::allocate() [9] void cv::binaryOpC1_<cv::OpAbsDiff<float>, cv::VBinOp32f<cv::_VAbsDiff32f> >(cv::Mat const&, cv::Mat const&, cv::Mat&) (_cxcore.h) [52] cvReleaseImage
+ [2243] cv::WBaseStream::WBaseStream() [2212] void cv::cvt_<float, double>(cv::Mat const&, cv::Mat&) (cxconvert.cpp) [53] cvReleaseImageHeader
+ [2207] cv::findDecoder(std::string const&) [5] void cv::cvt_<unsigned char, float>(cv::Mat const&, cv::Mat&) (cxconvert.cpp) [63] cvSaveImage
+ [2244] cv::findEncoder(std::string const&) [13] void cv::mul_<float, float>(cv::Mat const&, cv::Mat const&, cv::Mat&, double) (cxarithm.cpp) [64] cvSetImageIOFunctions
+ [2245] cv::ColumnFilter<cv::FixedPtCastEx<int, unsigned char>, cv::SymmColumnVec_32s8u>::ColumnFilter(cv::Mat const&, int, double, cv::FixedPtCastEx<int, unsigned char> const&, cv::SymmColumnVec_32s8u const&) [38] cv::Scalar_<double> cv::sum_<cv::Vec<float, 3>, cv::Vec<double, 3> >(cv::Mat const&) (cxstat.cpp) [14] cvSmooth
+ [2246] cv::FilterEngine::init(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [41] cv::Scalar_<double> cv::sum_<float, double>(cv::Mat const&) (cxstat.cpp) [43] decode_mcu (jdhuff.c)
+  [19] cv::FilterEngine::apply(cv::Mat const&, cv::Mat&, cv::Rect_<int> const&, cv::Point_<int>, bool) [37] cv::imread_(std::string const&, int, int, cv::Mat*) (loadsave.cpp) [44] decompress_onepass (jdcoefct.c)
+ [2247] cv::FilterEngine::start(cv::Size_<int>, cv::Rect_<int>, int) [2264] cv::imwrite_(std::string const&, cv::Mat const&, std::vector<int, std::allocator<int> > const&, bool) (loadsave.cpp) [30] jpeg_idct_16x16
+ [2248] cv::FilterEngine::start(cv::Mat const&, cv::Rect_<int> const&, bool, int) [2213] void cv::cvtScale_<float, cv::OpCvt<float, int> >(cv::Mat const&, cv::Mat&, double, double) (cxconvert.cpp) [31] jpeg_idct_islow
+  [20] cv::FilterEngine::proceed(unsigned char const*, int, int, unsigned char*, int) [2265] void cv::cvtScale_<int, cv::OpCvt<float, float> >(cv::Mat const&, cv::Mat&, double, double) (cxconvert.cpp) [1] main
+ [2249] cv::FilterEngine::FilterEngine(cv::Ptr<cv::BaseFilter> const&, cv::Ptr<cv::BaseRowFilter> const&, cv::Ptr<cv::BaseColumnFilter> const&, int, int, int, int, int, cv::Scalar_<double> const&) [2193] CvType::CvType(char const*, int (*)(void const*), void (*)(void**), void* (*)(CvFileStorage*, CvFileNode*), void (*)(CvFileStorage*, char const*, void const*, CvAttrList), void* (*)(void const*)) [22] memcpy
+ [2250] cv::FilterEngine::~FilterEngine() [2194] CvType::~CvType() [45] memset
+  [15] cv::GaussianBlur(cv::Mat const&, cv::Mat&, cv::Size_<int>, double, double, int) [2266] CvModule::~CvModule() [23] mmap
+ [2208] cv::RLByteStream::~RLByteStream() [3] calcPSNR::compare(_IplImage*, _IplImage*, Colorspace) [32] ycc_rgb_convert (jdcolor.c)
+ [2251] cv::RMByteStream::~RMByteStream() [2267] calcPSNR::calcPSNR()
+ [2209] cv::WLByteStream::putWord(int) [2268] cv::BmpEncoder::newEncoder() const

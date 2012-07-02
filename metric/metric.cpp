@@ -830,7 +830,7 @@ int main(int argc, char** argv)
   tM= sM->compare(src1,src3,YCbCr);
   F.printCvScalar(tM,YCbCr,3);
   cout<<"...................................................................................\n";
-
+  
   calcPSNR P;
   sM=&P;
   cout<<"\nPSNR\n";
@@ -848,7 +848,6 @@ int main(int argc, char** argv)
   F.printCvScalar(tM,YCbCr,3);
   cout<<"...................................................................................\n";
   
-  /* 
   calcSSIM M;
   sM=&M;
   cout<<"\nSSIM\n";
@@ -870,11 +869,9 @@ int main(int argc, char** argv)
   M.releaseCS_map();
   cout<<"...................................................................................\n";
 
-*/
   calcMSSSIM MS;
   sM=&MS;
   cout<<"\nMS-SSIM\n";
-  /*
   tM= sM->compare(gray1,gray2,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,1);
   tM= sM->compare(gray1,gray2,RGB);
@@ -883,7 +880,6 @@ int main(int argc, char** argv)
   F.printCvScalar(tM,YCbCr,1);
   tM= sM->compare(src1,src3,GRAYSCALE);
   F.printCvScalar(tM,GRAYSCALE,3);
-  */
   tM= sM->compare(src1,src3,RGB);
   F.printCvScalar(tM,RGB,3);
   //MS.releaseMSSSIM_map();
@@ -894,8 +890,14 @@ int main(int argc, char** argv)
   tM= sM1->compare(src1,src3,YCbCr);
   //MS.print_map();
   F.printCvScalar(tM,YCbCr,3);
+ 
+  calcMSSSIM MS2;
+  SimilarityMetric * sM2;
+  sM2 = &MS2;
+  tM= sM2->compare(src1,src3,YCbCr);
+  //MS.print_map();
+  F.printCvScalar(tM,YCbCr,3);
   //MS1.releaseMSSSIM_map();
-  /* 
   cout<<"...................................................................................\n";
   
   calcQualityIndex Q;
@@ -915,7 +917,7 @@ int main(int argc, char** argv)
   tM= sM->compare(src1,src3,YCbCr);
   F.printCvScalar(tM,YCbCr,3);
   cout<<"...................................................................................\n";
- */ 
+  
   //Release images
   cvReleaseImage(&src1);
   cvReleaseImage(&src2);
