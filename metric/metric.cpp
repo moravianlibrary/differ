@@ -802,7 +802,8 @@ int main(int argc, char** argv)
   
   cvCvtColor(src1, gray1, CV_RGB2GRAY); //color images are BGR!
   cvCvtColor(src3, gray2, CV_RGB2GRAY); //color images are BGR!
-  
+ 
+ cout<<"Image Size"<<gray1->height<<" "<<gray1->width<<"\n"; 
   cout<<"Similarity Metrics \n\n";
   //Calculating the Mean Squared Error
   cout<<"------------------------------------------------------------------------------------\n";
@@ -890,14 +891,6 @@ int main(int argc, char** argv)
   tM= sM1->compare(src1,src3,YCbCr);
   //MS.print_map();
   F.printCvScalar(tM,YCbCr,3);
- 
-  calcMSSSIM MS2;
-  SimilarityMetric * sM2;
-  sM2 = &MS2;
-  tM= sM2->compare(src1,src3,YCbCr);
-  //MS.print_map();
-  F.printCvScalar(tM,YCbCr,3);
-  //MS1.releaseMSSSIM_map();
   cout<<"...................................................................................\n";
   
   calcQualityIndex Q;
