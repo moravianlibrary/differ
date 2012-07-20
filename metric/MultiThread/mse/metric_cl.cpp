@@ -325,7 +325,29 @@ int main(int argc, char** argv)
 
   int x = src1->width, y = src1->height;
   int nChan = src1->nChannels;
-  
+  cout<<"Image Dimensions- ";
+  cout<<x<<" "<<y<<" "<<nChan<<" \n";
+
+  Mat p;
+ int h;
+  p = getGaussianKernel(11,2, CV_32F );
+  cout<<p.rows<<" "<<p.cols<<"\n";
+  float *data1 = (float*)p.data;
+  for(h=0;h<(p.rows)*(p.cols);h++)
+    printf("%f\n",data1[h]);
+  p = getGaussianKernel(3,1,CV_32F);
+  cout<<p.rows<<" "<<p.cols<<"\n";
+  float *data2 = (float*)p.data;
+  for(h=0;h<(p.rows)*(p.cols);h++)
+    printf("%f\n",data2[h]);
+
+  Mat pp = p * p.t();
+  cout<<pp.rows<<" "<<pp.cols<<"\n";
+  float *data3 = (float*)pp.data;
+  for(h=0;h<(pp.rows)*(pp.cols);h++)
+    printf("%f\n",data3[h]);
+
+
   //Creating a blurred image of the input image for testing
   IplImage *src3 = cvCreateImage(cvSize(x,y), IPL_DEPTH_8U, nChan);
   cvSmooth(src1, src3, CV_GAUSSIAN, 11 , 11, 2);
@@ -336,7 +358,7 @@ int main(int argc, char** argv)
   CvScalar mse, mse2, mse3;
 
     int i, j;
-    int TIMES = 1000;
+    int TIMES = 10;
     clock_t start;
 
     start = clock();
