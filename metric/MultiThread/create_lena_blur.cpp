@@ -38,9 +38,9 @@ int main(int argc, char** argv)
   //Creating a blurred image of the input image for testing
   IplImage *src3 = cvCreateImage(cvSize(x,y), IPL_DEPTH_8U, nChan);
   cvSmooth(src1, src3, CV_GAUSSIAN, 11 , 11, 2);
-  cvSaveImage("lena_blur.bmp",src3);
-  cvSaveImage("lena.bmp",src1);
-  
+  cvSaveImage("big_blur.bmp",src3);
+  cvSaveImage("big2.bmp",src1);
+  cout<< "x = "<<x<<": y = "<<y<<"\n";
   cvReleaseImage(&src1);
   cvReleaseImage(&src2);
   cvReleaseImage(&src3);

@@ -15,6 +15,7 @@
 #include <CL/cl.h>
 #endif
 
+//#define MAX_SOURCE_SIZE (0x100000)
 #define MAX_SOURCE_SIZE (0x100000)
 using namespace cv;
 using namespace std;
@@ -912,6 +913,8 @@ class MSE_openCl : public host_program_openCl, public SimilarityMetric {
        cl_mem a_mem_obj = clCreateBuffer(context, CL_MEM_READ_ONLY, LIST_SIZE * sizeof(float), NULL, &ret);
        cl_mem b_mem_obj = clCreateBuffer(context, CL_MEM_READ_ONLY, LIST_SIZE * sizeof(float), NULL, &ret);
        cl_mem c_mem_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY, LIST_SIZE * sizeof(float), NULL, &ret);
+       if (!a_mem_obj || !b_mem_obj || !c_mem_obj )
+           cout<<"Failed to allocate device memory!\n"; 
    
        // Copy the lists A and B to their respective memory buffers
        ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), A, 0, NULL, NULL);
@@ -923,10 +926,11 @@ class MSE_openCl : public host_program_openCl, public SimilarityMetric {
        ret = clSetKernelArg(kernel_mse, 2, sizeof(cl_mem), (void *)&c_mem_obj);
        
        // Execute the OpenCL kernel on the list
-       ret = clEnqueueNDRangeKernel(command_queue, kernel_mse, 1, NULL, &global_item_size, &local_item_size, 0, NULL, &event[0]);
+       //ret = clEnqueueNDRangeKernel(command_queue, kernel_mse, 1, NULL, &global_item_size, &local_item_size, 0, NULL, &event[0]);
+       ret = clEnqueueNDRangeKernel(command_queue, kernel_mse, 1, NULL, &global_item_size, NULL, 0, NULL, &event[0]);
        if (ret!=CL_SUCCESS) {
          printf("Error: Kernel could not be executed\n"); 
-         cout<<ret;
+         cout<<ret<<"\n";
        }
        clWaitForEvents(1, &event[0]);
    
@@ -1814,7 +1818,7 @@ int main (int argc, char **argv) {
   
   // Setting up the options
   int c;
-  int algo = 1; // default algo MSE
+  int algo = 0;
   Colorspace space;
   space = GRAYSCALE; // default color space
   bool opencl= false; // default no opencl
@@ -1863,6 +1867,8 @@ int main (int argc, char **argv) {
               algo = algo | 8;
           if(strcmp(algorithm,"iqi")==0)
               algo = algo | 16;
+          if(strcmp(algorithm,"all")==0)
+              algo = 1 | 2 | 4 | 8 | 16;
           break;
       
       case 'c':
