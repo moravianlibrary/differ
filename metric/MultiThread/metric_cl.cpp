@@ -40,7 +40,7 @@ Mat get_gaussian_filter(int filter_size, int sigma) {
 
 void printCvScalar(CvScalar value, const char *comment)
 {
-  cout<<comment<<"\t :\t"<<value.val[0]<<" :\t "<<value.val[1]<<" :\t "<<value.val[2]<<" :\t "<<value.val[3]<<"\n";
+  cout<<comment<<" : "<<value.val[0]<<" , "<<value.val[1]<<" , "<<value.val[2]<<" , "<<value.val[3]<<"\n";
 }
 
 void print_time(clock_t start, int TIMES, const char *s) {
@@ -502,8 +502,8 @@ class calcMSSSIM : public SimilarityMetric {
     void setGaussian_sigma(double val) { gaussian_sigma = val; }
     void setLevel(int val) { level = val; }
     void setL(int val) { L = val; }
-    void setAlpha(float *val) { alpha = val; }
-    void setBeta(float *val) { beta = val; }
+    void setAlpha(float *val) { alpha = val;}
+    void setBeta(float *val) { beta = val;}
     void setGamma(float *val) { gamma = val; }
 
     CvScalar getMSSSIM() { return ms_ssim_value; }
@@ -555,7 +555,9 @@ class calcMSSSIM : public SimilarityMetric {
       ms_ssim_map = (IplImage**)(malloc(sizeof(IplImage*)*level));
 
       #ifdef DEBUG
+      cout<<"\nAlpha = "<<alpha[0]<<" "<<alpha[1]<<" "<<alpha[2]<<" "<<alpha[3]<<"\n";
       cout<<"\nBeta = "<<beta[0]<<" "<<beta[1]<<" "<<beta[2]<<" "<<beta[3]<<"\n";
+      cout<<"\nGamma = "<<gamma[0]<<" "<<gamma[1]<<" "<<gamma[2]<<" "<<gamma[3]<<"\n";
       #endif
 
       for (int i=0; i<level; i++)
@@ -1806,7 +1808,9 @@ int main (int argc, char **argv) {
   S.Init();
   MS.Init();
   I.Init();
+  #ifdef DEBUG
   cout<<"Finished Initialization\n";
+  #endif
   
   // Setting up the options
   int c;
@@ -1817,7 +1821,7 @@ int main (int argc, char **argv) {
   char output_file[50];
   char img_name1[50], img_name2[50];
   static struct option long_options[] = {
-      {"algorithm", 1, 0, 'a'},
+      {"algorithm", 1, 0, 'm'},
       {"colorspace", 1, 0, 'c'},
       {"opencl", 0, 0, 'p'},
       {"L", 1, 0, 'L'},
@@ -1826,6 +1830,9 @@ int main (int argc, char **argv) {
       {"gaussian_window_size", 1, 0, 'w'},
       {"sigma", 1, 0, 's'},
       {"level", 1, 0, 'l'},
+      {"alpha", 1, 0, 'a'},
+      {"beta", 1, 0, 'b'},
+      {"gamma", 1, 0, 'g'},
       {"B", 1, 0, 'B'},
       {"out", 1, 0, 'o'},
       {"image1", 1, 0, 1},
@@ -1833,31 +1840,36 @@ int main (int argc, char **argv) {
       {NULL, 0, NULL, 0}
   };
   int option_index = 0;
-  
-  while ((c = getopt_long(argc, argv, "a:pc:L:1:2:s:l:B:o:", long_options, &option_index)) != -1) {
+  int ind = 0;
+  char * cut;
+  while ((c = getopt_long(argc, argv, "m:pc:L:1:2:s:l:a:b:g:B:o:", long_options, &option_index)) != -1) {
       
     int this_option_optind = optind ? optind : 1;
     switch (c) {
       
-      case 'a':
+      case 'm':
         char algorithm[20];
         sscanf(optarg, "%s", algorithm);
+          #ifdef DEBUG
           printf("Algorithm - %s \n",algorithm);
+          #endif
           if(strcmp(algorithm,"mse")==0)
-              algo=1;
+              algo = algo | 1;
           if(strcmp(algorithm,"psnr")==0)
-              algo=2;
+              algo = algo | 2;
           if(strcmp(algorithm,"ssim")==0)
-              algo=3;
+              algo = algo | 4;
           if(strcmp(algorithm,"msssim")==0)
-              algo=4;
+              algo = algo | 8;
           if(strcmp(algorithm,"iqi")==0)
-              algo=5;
+              algo = algo | 16;
           break;
       
       case 'c':
           int color_code;
+          #ifdef DEBUG
           cout<<"Option colorspace\n";
+          #endif
           sscanf(optarg, "%d", &color_code);
           switch (color_code) {
             case 0:
@@ -1873,84 +1885,163 @@ int main (int argc, char **argv) {
               space = GRAYSCALE;
               break;
           }
+          #ifdef DEBUG
           cout<<"Space = "<<space<<"\n";
+          #endif
           break;
 
       case 'p':
           opencl = true;
+          #ifdef DEBUG
+          cout<<"Using OpenCL\n";
+          #endif
           break;
       
       case 'o':
           sscanf(optarg, "%s",output_file );
+          #ifdef DEBUG
           printf("output_file - %s \n",output_file);
+          #endif
           break;
 
       case 1:
-        sscanf(optarg, "%s", img_name1);
-    		printf("Image1 : %s\n", img_name1);
-        break;
+          sscanf(optarg, "%s", img_name1);
+          #ifdef DEBUG
+    		  printf("Image1 : %s\n", img_name1);
+          #endif
+          break;
       
       case 2:
-        sscanf(optarg, "%s", img_name2);
-    		printf("Image2 : %s\n", img_name2);
-        break;
+          sscanf(optarg, "%s", img_name2);
+          #ifdef DEBUG
+    	  	printf("Image2 : %s\n", img_name2);
+          #endif
+          break;
       
       case 'L':
-        int L;
-        sscanf(optarg, "%d", &L);
-        printf("Setting L value = %d\n", L);
-        psnr.setL(L);
-        ssim.setL(L);
-        msssim.setL(L);
-        break;
+          int L;
+          sscanf(optarg, "%d", &L);
+          #ifdef DEBUG
+          printf("Setting L value = %d\n", L);
+          #endif
+          psnr.setL(L);
+          ssim.setL(L);
+          msssim.setL(L);
+          break;
       
       case '1':
-        double K1;
-        sscanf(optarg, "%lf", &K1);
-        printf("Setting K1 value = %lf\n", K1);
-        ssim.setK1(K1);
-        msssim.setK1(K1);
-        break;
+          double K1;
+          sscanf(optarg, "%lf", &K1);
+          #ifdef DEBUG
+          printf("Setting K1 value = %lf\n", K1);
+          #endif
+          ssim.setK1(K1);
+          msssim.setK1(K1);
+          break;
 
       case '2':
-        double K2;
-        sscanf(optarg, "%lf", &K2);
-        printf("Setting K2 value = %lf\n", K2);
-        ssim.setK2(K2);
-        msssim.setK2(K2);
-        break;
+          double K2;
+          sscanf(optarg, "%lf", &K2);
+          #ifdef DEBUG
+          printf("Setting K2 value = %lf\n", K2);
+          #endif
+          ssim.setK2(K2);
+          msssim.setK2(K2);
+          break;
       
       case 'w':
-        int w;
-        sscanf(optarg, "%d", &w);
-        printf("Setting gaussian window = %d\n", w);
-        if(w%2==0)
-          w++;
-        ssim.setGaussian_window(w);
-        msssim.setGaussian_window(w);
-        break;
+          int w;
+          sscanf(optarg, "%d", &w);
+          #ifdef DEBUG
+          printf("Setting gaussian window = %d\n", w);
+          #endif
+          if(w%2==0)
+            w++;
+          ssim.setGaussian_window(w);
+          msssim.setGaussian_window(w);
+          break;
       
       case 's':
-        double sigma;
-        sscanf(optarg, "%lf", &sigma);
-        printf("Setting gaussian sigma = %lf\n", sigma);
-        ssim.setGaussian_sigma(sigma);
-        msssim.setGaussian_sigma(sigma);
-        break;
+          double sigma;
+          sscanf(optarg, "%lf", &sigma);
+          #ifdef DEBUG
+          printf("Setting gaussian sigma = %lf\n", sigma);
+          #endif
+          ssim.setGaussian_sigma(sigma);
+          msssim.setGaussian_sigma(sigma);
+          break;
       
       case 'l':
-        int level;
-        sscanf(optarg, "%d", &level);
-        printf("Setting level = %d\n", level);
-        msssim.setLevel(level);
-        break;
+          int level;
+          sscanf(optarg, "%d", &level);
+          #ifdef DEBUG
+          printf("Setting level = %d\n", level);
+          #endif
+          msssim.setLevel(level);
+          break;
       
+      case 'a':
+          char alpha_t[100];
+          float alpha[50];
+          ind =0;
+          sscanf(optarg, "%s", alpha_t);
+          cut = strtok(alpha_t,",");
+          while (cut !=NULL) {
+            sscanf(cut, "%f", &alpha[ind]);
+            cut = strtok(NULL, ",");
+            ind++;
+          }
+          #ifdef DEBUG
+          printf("Setting alpha = \n");
+          #endif
+          msssim.setAlpha(alpha);
+          MS.setAlpha(alpha);
+          break;
+      
+      case 'b':
+          char beta_t[100];
+          float beta[50];
+          ind =0;
+          sscanf(optarg, "%s", beta_t);
+          cut = strtok(beta_t,",");
+          while (cut !=NULL) {
+            sscanf(cut, "%f", &beta[ind]);
+            cut = strtok(NULL, ",");
+            ind++;
+          }
+          #ifdef DEBUG
+          printf("Setting beta = \n");
+          #endif
+          msssim.setBeta(beta);
+          MS.setBeta(beta);
+          break;
+ 
+      case 'g':
+          char gamma_t[100];
+          float gamma[50];
+          ind =0;
+          sscanf(optarg, "%s", gamma_t);
+          cut = strtok(gamma_t,",");
+          while (cut !=NULL) {
+            sscanf(cut, "%f", &gamma[ind]);
+            cut = strtok(NULL, ",");
+            ind++;
+          }
+          #ifdef DEBUG
+          printf("Setting gamma = \n");
+          #endif
+          msssim.setGamma(gamma);
+          MS.setGamma(gamma);
+          break;
+
       case 'B':
-        int B;
-        sscanf(optarg, "%d", &B);
-        printf("Setting B = %d\n", B);
-        iqi.setB(B);
-        break;
+          int B;
+          sscanf(optarg, "%d", &B);
+          #ifdef DEBUG
+          printf("Setting B = %d\n", B);
+          #endif
+          iqi.setB(B);
+          break;
       
       case '?':
           break;
@@ -1962,13 +2053,16 @@ int main (int argc, char **argv) {
   }
  
   // Finished with get_opt_long 
+  #ifdef DEBUG
   cout<<"Finished with get_opt_long\n";
+  cout<<"Algo = "<<algo<<"\n";
+  #endif
   src1 = cvLoadImage(img_name1);
   src2 = cvLoadImage(img_name2);
 
-  switch(algo)
+  if(algo!=0)
   {
-    case 1:
+    if((algo & 1) != 0)
       if(opencl==false) {
         res = mse.compare(src1,src2,space);
         printCvScalar(res,"MSE");
@@ -1977,8 +2071,8 @@ int main (int argc, char **argv) {
         res = M.compare(src1,src2,space);
         printCvScalar(res,"MSE_opencl");
       }
-      break;
-    case 2:
+    
+    if((algo & 2) != 0)
       if(opencl==false) {
         res = psnr.compare(src1,src2,space);
         printCvScalar(res,"PSNR");
@@ -1988,8 +2082,8 @@ int main (int argc, char **argv) {
         res = M.getPSNR();
         printCvScalar(res,"PSNR_openCl");
       }
-      break;
-    case 3:
+    
+    if((algo & 4) != 0)
       if(opencl==false) {
         res = ssim.compare(src1,src2,space);
         printCvScalar(res,"SSIM");
@@ -1998,8 +2092,8 @@ int main (int argc, char **argv) {
         res = S.compare(src1,src2,space);
         printCvScalar(res,"SSIM_opencl");
       }
-      break;
-    case 4:
+    
+    if((algo & 8) != 0)
       if(opencl==false) {
         res = msssim.compare(src1,src2,space);
         printCvScalar(res,"MSSSIM");
@@ -2008,8 +2102,8 @@ int main (int argc, char **argv) {
         res = MS.compare(src1,src2,space);
         printCvScalar(res,"MSSSIM_opencl");
       }
-      break;
-    case 5:
+    
+    if((algo & 16) != 0)
       if(opencl==false) {
         res = iqi.compare(src1,src2,space);
         printCvScalar(res,"IQI");
@@ -2018,9 +2112,6 @@ int main (int argc, char **argv) {
         res = I.compare(src1,src2,space);
         printCvScalar(res,"IQI_opencl");
       }
-      break;
-    default:
-      cout<<"Invalid choice\n";
   }
 
   //Release images
