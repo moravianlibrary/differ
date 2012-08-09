@@ -1,8 +1,8 @@
-__kernel void ms_ssim_B( __global float *mu1,  __global float *mu2, __constant float *filter,  __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *ssim_index, __global float *cs_index, const int img_height, const int img_width, const int nChan, const int size_filter, const float K1, const float K2) {
+__kernel void ms_ssim_B( __global float *mu1,  __global float *mu2, __constant float *filter,  __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *ssim_index, __global float *cs_index, const int img_width, const int img_height, const int nChan, const int size_filter, const float K1, const float K2) {
     
     // Get the index of the current element
-    int h = get_global_id(0);
-    int w = get_global_id(1);
+    int w = get_global_id(0);
+    int h = get_global_id(1);
     float sum_img1_sq[3] = {0.0, 0.0, 0.0};
     float sum_img2_sq[3] = {0.0, 0.0, 0.0};
     float sum_img1_img2[3] = {0.0, 0.0, 0.0};
@@ -16,8 +16,6 @@ __kernel void ms_ssim_B( __global float *mu1,  __global float *mu2, __constant f
     float denom;
     float num_cs;
     float denom_cs;
-    //float C1 = 6.5;
-    //float C2 = 58.5;
     float C1 = K1;
     float C2 = K2;
 

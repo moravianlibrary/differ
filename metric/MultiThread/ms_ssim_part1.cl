@@ -1,8 +1,8 @@
-__kernel void ms_ssim_A(const __global float *src1, const __global float *src2, __constant float *filter, __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *mu1, __global float *mu2, const int img_height, const int img_width, const int nChan, const int size_filter) {
+__kernel void ms_ssim_A(const __global float *src1, const __global float *src2, __constant float *filter, __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *mu1, __global float *mu2, const int img_width, const int img_height, const int nChan, const int size_filter) {
     
     // Get the index of the current element
-    int h = get_global_id(0);
-    int w = get_global_id(1);
+    int w = get_global_id(0);
+    int h = get_global_id(1);
     float sum_mu1[3] = {0.0, 0.0, 0.0};
     float sum_mu2[3] = {0.0, 0.0, 0.0};
     
