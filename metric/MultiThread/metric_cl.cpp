@@ -493,10 +493,10 @@ class calcMSSSIM : public SimilarityMetric {
       delete[] gamma;
       int i;
       for (i=0; i < level; i++) {
-        if(ms_ssim_map[i] != NULL)
+        if (ms_ssim_map[i] != NULL)
           cvReleaseImage(&ms_ssim_map[i]);
       }
-      if(ms_ssim_map !=NULL) 
+      if (ms_ssim_map !=NULL) 
         free(ms_ssim_map);
     }
 
@@ -516,10 +516,10 @@ class calcMSSSIM : public SimilarityMetric {
     void releaseMSSSIM_map() {
       int i;
       for (i=0; i < level; i++) {
-        if(ms_ssim_map[i] != NULL)
+        if (ms_ssim_map[i] != NULL)
           cvReleaseImage(&ms_ssim_map[i]);
       }
-      if(ms_ssim_map != NULL)
+      if (ms_ssim_map != NULL)
         free(ms_ssim_map);
     }
 
@@ -632,7 +632,7 @@ class calcQualityIndex : public SimilarityMetric {
     
     ~calcQualityIndex()
     {
-      if(image_quality_map != NULL)
+      if (image_quality_map != NULL)
         cvReleaseImage(&image_quality_map);
     }
     
@@ -642,7 +642,7 @@ class calcQualityIndex : public SimilarityMetric {
     IplImage* getImageQuality_map() { return image_quality_map; }
 
     void releaseImageQuality_map() {
-      if(image_quality_map != NULL)
+      if (image_quality_map != NULL)
         cvReleaseImage(&image_quality_map);
     }
 
@@ -812,7 +812,7 @@ class host_program_openCl {
  
       host_program_openCl() {
       
-       size_t max_wrkgrp_size; 
+        size_t max_wrkgrp_size; 
         platform_id = NULL;
         device_id = NULL;
         
@@ -844,7 +844,6 @@ class host_program_openCl {
         source_str = (char*)malloc(MAX_SOURCE_SIZE);
         source_size = fread( source_str, 1, MAX_SOURCE_SIZE, fp);
         fclose( fp );
-
         return source_str;
       }
       
@@ -862,7 +861,7 @@ class host_program_openCl {
        
         // Create a command queue
         command_queue = clCreateCommandQueue(context, device_id, 0, &ret);
-        if( ret != CL_SUCCESS ) 
+        if ( ret != CL_SUCCESS ) 
           printf( "Error : Cannot create command queue.\n" ); 
       }
 
@@ -884,7 +883,7 @@ class host_program_openCl {
      }
 
     // Clean up
-    void clean_up_host() {
+    ~host_program_openCl() {
        ret = clFlush(command_queue);
        ret = clFinish(command_queue);
        ret = clReleaseProgram(program);
@@ -1019,8 +1018,6 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
     int L;
     IplImage *ssim_map;
     CvScalar mssim_value;
-    IplImage *cs_map;
-    CvScalar mean_cs_value; // mean of contrast, structure (part of l,c,s)
 
   public:
 
@@ -1034,9 +1031,12 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
       ssim_map = NULL;
       for (int i=0; i < 4; i++)
         mssim_value.val[i] = -1; // Initialize with an out of bound value of mssim [0,1]
-      cs_map = NULL;
-      for (int i=0; i < 4; i++)
-        mean_cs_value.val[i] = -1; // Initialize with an out of bound value of mssim [0,1]
+    }
+
+    ~SSIM_openCl() {
+      if (ssim_map != NULL)
+        cvReleaseImage(&ssim_map);
+      ssim_map = NULL;
     }
 
     void setK1(double val) { K1 = val; }
@@ -1046,23 +1046,8 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
     void setL(int val) { L = val; }
 
     CvScalar getMSSIM() { return mssim_value; }
-    CvScalar getMeanCSvalue() { return mean_cs_value; }
     IplImage* getSSIM_map() { return ssim_map; }
-
-    IplImage* getCS_map() { return cs_map; }
-
-    void releaseSSIM_map() { 
-      if (ssim_map != NULL)
-        cvReleaseImage(&ssim_map);
-      ssim_map = NULL;
-    }
     
-    void releaseCS_map() { 
-      if (cs_map != NULL)
-        cvReleaseImage(&cs_map); 
-      cs_map = NULL;
-    }
-
     int print_map()
     {
       if (ssim_map == NULL)
@@ -1231,7 +1216,7 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
       //creating diff and difference squares
       IplImage *img1 = cvCreateImage(size, d, nChan);
       IplImage *img2 = cvCreateImage(size, d, nChan);
-      IplImage *ssim_index = cvCreateImage(size, d, nChan);
+      IplImage *ssim_map = cvCreateImage(size, d, nChan);
       cvConvert(src1, img1);
     	cvConvert(src2, img2);
     
@@ -1241,14 +1226,13 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
       Mat tempo = get_gaussian_filter(gaussian_window,gaussian_sigma);
       float *filter = (float*)tempo.data;
 
-      execute_ssim((float*)(img1->imageData), (float*)(img2->imageData), filter, (float*)(ssim_index->imageData), LIST_SIZE ,LOCAL_SIZE, x, y, nChan, gaussian_window, C1, C2);
+      execute_ssim((float*)(img1->imageData), (float*)(img2->imageData), filter, (float*)(ssim_map->imageData), LIST_SIZE ,LOCAL_SIZE, x, y, nChan, gaussian_window, C1, C2);
   
-      mssim_value = cvAvg(ssim_index);
+      mssim_value = cvAvg(ssim_map);
 
       //Release images
       cvReleaseImage(&img1);
       cvReleaseImage(&img2);
-      cvReleaseImage(&ssim_index);
       cvReleaseImage(&src1);
       cvReleaseImage(&src2);
 
@@ -1305,10 +1289,10 @@ class MS_SSIM_openCl : public SSIM_openCl {
       delete[] gamma;
       int i;
       for (i=0; i < level; i++) {
-        if(ms_ssim_map[i] != NULL)
+        if (ms_ssim_map[i] != NULL)
           cvReleaseImage(&ms_ssim_map[i]);
       }
-      if(ms_ssim_map !=NULL) 
+      if (ms_ssim_map !=NULL) 
         free(ms_ssim_map);
     }
 
@@ -1328,10 +1312,10 @@ class MS_SSIM_openCl : public SSIM_openCl {
     void releaseMSSSIM_map() {
       int i;
       for (i=0; i < level; i++) {
-        if(ms_ssim_map[i] != NULL)
+        if (ms_ssim_map[i] != NULL)
           cvReleaseImage(&ms_ssim_map[i]);
       }
-      if(ms_ssim_map != NULL)
+      if (ms_ssim_map != NULL)
         free(ms_ssim_map);
     }
 
@@ -1494,6 +1478,8 @@ class MS_SSIM_openCl : public SSIM_openCl {
   
     CvScalar execute_ms_ssim (IplImage *src1, IplImage *src2, float *filter, int LIST_SIZE, int LOCAL_SIZE, int x, int y, int nChan, int filter_size, float C1, float C2, int level) {
    
+      CvScalar mssim_t;
+      CvScalar mcs_t;
       ms_ssim_map = (IplImage**)(malloc(sizeof(IplImage*)*level));
       int d = IPL_DEPTH_32F;
       #ifdef DEBUG
@@ -1519,20 +1505,19 @@ class MS_SSIM_openCl : public SSIM_openCl {
         cout<<"Checking for average value - "<<test_avg.val[0]<<" "<<test_avg.val[1]<<" "<<test_avg.val[2]<<"\n";
         #endif
 
-        //int x1 = downsampleSrc1->height;
-        //int y1 = downsampleSrc1->width;
-        int x1 = downsampleSrc1->width;
-        int y1 = downsampleSrc1->height;
-        LIST_SIZE = x1*y1*nChan;
+        // Downsampled height and width
+        int xds = downsampleSrc1->width;
+        int yds = downsampleSrc1->height; 
+        LIST_SIZE = xds*yds*nChan;
         LOCAL_SIZE = 1 ;
         #ifdef DEBUG
         cout<<"Values at level="<<i<<" \n";
         #endif 
 
-        execute_ssim_temp((float*)(downsampleSrc1->imageData), (float*)(downsampleSrc2->imageData), filter, (float*)(ms_ssim_map[i]->imageData), (float*)(cs_map->imageData), LIST_SIZE,LOCAL_SIZE,x1,y1,nChan,gaussian_window, C1, C2);
+        execute_ssim_temp((float*)(downsampleSrc1->imageData), (float*)(downsampleSrc2->imageData), filter, (float*)(ms_ssim_map[i]->imageData), (float*)(cs_map->imageData), LIST_SIZE, LOCAL_SIZE, xds, yds, nChan, gaussian_window, C1, C2);
 
-        CvScalar mssim_t = cvAvg(ms_ssim_map[i]);
-        CvScalar mcs_t = cvAvg(cs_map);
+        mssim_t = cvAvg(ms_ssim_map[i]);
+        mcs_t = cvAvg(cs_map);
         
         #ifdef DEBUG
         cout<<"Size of MAP at level = "<<i<<" size = "<<ms_ssim_map[i]->width<<" "<<ms_ssim_map[i]->height<<"\n";
@@ -1553,9 +1538,9 @@ class MS_SSIM_openCl : public SSIM_openCl {
         cvReleaseImage(&downsampleSrc1);
         cvReleaseImage(&downsampleSrc2);
         cvReleaseImage(&cs_map);
-
       }
       return ms_ssim_value;
+    
     }
 
     virtual CvScalar compare(IplImage *source1, IplImage *source2, Colorspace space)
@@ -1571,22 +1556,20 @@ class MS_SSIM_openCl : public SSIM_openCl {
       //creating diff and difference squares
       IplImage *img1 = cvCreateImage(size, d, nChan);
       IplImage *img2 = cvCreateImage(size, d, nChan);
-      IplImage *ms_ssim_map = cvCreateImage(size, d, nChan);
       cvConvert(src1, img1);
     	cvConvert(src2, img2);
     
       const float C1 = (K1 * L) * (K1 * L); 
       const float C2 = (K2 * L) * (K2 * L);
   
-      Mat tempo = get_gaussian_filter(gaussian_window,gaussian_sigma);
+      Mat tempo = get_gaussian_filter(gaussian_window, gaussian_sigma);
       float *filter = (float*)tempo.data;
 
-      ms_ssim_value  = execute_ms_ssim(img1, img2, filter, x*y*nChan, x,x,y,nChan,gaussian_window, C1, C2, level);
+      ms_ssim_value  = execute_ms_ssim(img1, img2, filter, x*y*nChan, x, x, y, nChan, gaussian_window, C1, C2, level);
 
       //Release images
       cvReleaseImage(&img1);
       cvReleaseImage(&img2);
-      //I have tto release ms_ssim
       cvReleaseImage(&src1);
       cvReleaseImage(&src2);
 
@@ -1614,7 +1597,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
     
     ~ImageQuI_openCl()
     {
-      if(image_quality_map != NULL)
+      if (image_quality_map != NULL)
         cvReleaseImage(&image_quality_map);
     }
     
@@ -1624,7 +1607,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
     IplImage* getImageQuality_map() { return image_quality_map; }
 
     void releaseImageQuality_map() {
-      if(image_quality_map != NULL)
+      if (image_quality_map != NULL)
         cvReleaseImage(&image_quality_map);
     }
 
@@ -1884,19 +1867,19 @@ int main (int argc, char **argv) {
         char algorithm[20];
         sscanf(optarg, "%s", algorithm);
           #ifdef DEBUG
-          printf("Algorithm - %s \n",algorithm);
+          printf("Algorithm - %s \n", algorithm);
           #endif
-          if(strcmp(algorithm,"mse")==0)
+          if (strcmp(algorithm,"mse") == 0)
               algo = algo | opt_mse;
-          if(strcmp(algorithm,"psnr")==0)
+          if (strcmp(algorithm,"psnr") == 0)
               algo = algo | opt_psnr;
-          if(strcmp(algorithm,"ssim")==0)
+          if (strcmp(algorithm,"ssim") == 0)
               algo = algo | opt_ssim;
-          if(strcmp(algorithm,"msssim")==0)
+          if (strcmp(algorithm,"msssim") == 0)
               algo = algo | opt_msssim;
-          if(strcmp(algorithm,"iqi")==0)
+          if (strcmp(algorithm,"iqi") == 0)
               algo = algo | opt_iqi;
-          if(strcmp(algorithm,"all")==0)
+          if (strcmp(algorithm,"all") == 0)
               algo = opt_mse | opt_psnr | opt_ssim | opt_msssim | opt_iqi;
           break;
       
@@ -1933,9 +1916,9 @@ int main (int argc, char **argv) {
           break;
       
       case 'o':
-          sscanf(optarg, "%s",output_file );
+          sscanf(optarg, "%s", output_file );
           #ifdef DEBUG
-          printf("output_file - %s \n",output_file);
+          printf("output_file - %s \n", output_file);
           #endif
           break;
 
@@ -1997,7 +1980,7 @@ int main (int argc, char **argv) {
           #ifdef DEBUG
           printf("Setting gaussian window = %d\n", w);
           #endif
-          if(w%2==0)
+          if ( w%2 == 0)
             w++;
           ssim.setGaussian_window(w);
           msssim.setGaussian_window(w);
@@ -2030,10 +2013,10 @@ int main (int argc, char **argv) {
       case 'a':
           char alpha_t[100];
           float alpha[50];
-          ind =0;
+          ind = 0;
           sscanf(optarg, "%s", alpha_t);
-          cut = strtok(alpha_t,",");
-          while (cut !=NULL) {
+          cut = strtok(alpha_t, ",");
+          while (cut != NULL) {
             sscanf(cut, "%f", &alpha[ind]);
             cut = strtok(NULL, ",");
             ind++;
@@ -2050,8 +2033,8 @@ int main (int argc, char **argv) {
           float beta[50];
           ind =0;
           sscanf(optarg, "%s", beta_t);
-          cut = strtok(beta_t,",");
-          while (cut !=NULL) {
+          cut = strtok(beta_t, ",");
+          while (cut != NULL) {
             sscanf(cut, "%f", &beta[ind]);
             cut = strtok(NULL, ",");
             ind++;
@@ -2068,7 +2051,7 @@ int main (int argc, char **argv) {
           float gamma[50];
           ind =0;
           sscanf(optarg, "%s", gamma_t);
-          cut = strtok(gamma_t,",");
+          cut = strtok(gamma_t, ",");
           while (cut !=NULL) {
             sscanf(cut, "%f", &gamma[ind]);
             cut = strtok(NULL, ",");
@@ -2087,7 +2070,7 @@ int main (int argc, char **argv) {
           #ifdef DEBUG
           printf("Setting B = %d\n", B);
           #endif
-          if(B%2==1)
+          if (B%2==1)
             B++;
           iqi.setB(B);
           I.setB(B);
@@ -2110,57 +2093,57 @@ int main (int argc, char **argv) {
   src1 = cvLoadImage(img_name1);
   src2 = cvLoadImage(img_name2);
 
-  if(algo!=0)
+  if (algo!=0)
   {
-    if((algo & opt_mse) != 0)
-      if(opencl==false) {
-        res = mse.compare(src1,src2,space);
-        printCvScalar(res,"MSE");
+    if ((algo & opt_mse) != 0)
+      if (opencl == false) {
+        res = mse.compare(src1, src2, space);
+        printCvScalar(res, "MSE");
       } 
       else {
-        res = M.compare(src1,src2,space);
-        printCvScalar(res,"MSE_opencl");
+        res = M.compare(src1, src2, space);
+        printCvScalar(res, "MSE_opencl");
       }
     
-    if((algo & opt_psnr) != 0)
-      if(opencl==false) {
-        res = psnr.compare(src1,src2,space);
-        printCvScalar(res,"PSNR");
+    if ((algo & opt_psnr) != 0)
+      if (opencl == false) {
+        res = psnr.compare(src1, src2, space);
+        printCvScalar(res, "PSNR");
       }
       else {
-        res = M.compare(src1,src2,space);
+        res = M.compare(src1, src2, space);
         res = M.getPSNR();
-        printCvScalar(res,"PSNR_openCl");
+        printCvScalar(res, "PSNR_openCl");
       }
     
-    if((algo & opt_ssim) != 0)
-      if(opencl==false) {
-        res = ssim.compare(src1,src2,space);
-        printCvScalar(res,"SSIM");
+    if ((algo & opt_ssim) != 0)
+      if (opencl == false) {
+        res = ssim.compare(src1, src2, space);
+        printCvScalar(res, "SSIM");
       }
       else {
-        res = S.compare(src1,src2,space);
-        printCvScalar(res,"SSIM_opencl");
+        res = S.compare(src1, src2, space);
+        printCvScalar(res, "SSIM_opencl");
       }
     
-    if((algo & opt_msssim) != 0)
-      if(opencl==false) {
-        res = msssim.compare(src1,src2,space);
-        printCvScalar(res,"MSSSIM");
+    if ((algo & opt_msssim) != 0)
+      if (opencl == false) {
+        res = msssim.compare(src1, src2, space);
+        printCvScalar(res, "MSSSIM");
       }
       else {
-        res = MS.compare(src1,src2,space);
-        printCvScalar(res,"MSSSIM_opencl");
+        res = MS.compare(src1, src2, space);
+        printCvScalar(res, "MSSSIM_opencl");
       }
     
-    if((algo & opt_iqi) != 0)
-      if(opencl==false) {
+    if ((algo & opt_iqi) != 0)
+      if (opencl == false) {
         res = iqi.compare(src1,src2,space);
-        printCvScalar(res,"IQI");
+        printCvScalar(res, "IQI");
       }
       else {
         res = I.compare(src1,src2,space);
-        printCvScalar(res,"IQI_opencl");
+        printCvScalar(res, "IQI_opencl");
       }
   }
 
