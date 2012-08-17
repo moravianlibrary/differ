@@ -1,4 +1,12 @@
-__kernel void gaussian_filter(const __global float *input, __constant float *filter, __global float *out, const int img_height, const int img_width, const int nChan, const int size_filter) {
+__kernel void gaussian_filter (
+    const __global float *input, 
+    __constant float *filter,
+    __global float *out,
+    const int img_height, 
+    const int img_width, 
+    const int nChan,
+    const int size_filter )
+{
     
     // Get the index of the current element
     int h = get_global_id(0);

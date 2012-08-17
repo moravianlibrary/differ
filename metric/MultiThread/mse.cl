@@ -1,4 +1,8 @@
-__kernel void vector_mse(__global float *A, __global float *B, __global float *C) {
+__kernel void vector_mse (
+    __global float *A, 
+    __global float *B, 
+    __global float *C ) 
+{
     
     // Get the index of the current element
     int i = get_global_id(0);

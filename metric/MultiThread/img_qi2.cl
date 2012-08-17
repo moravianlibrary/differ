@@ -1,4 +1,15 @@
-__kernel void img_qi_B( __global float *mu1,  __global float *mu2, __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *iqi_index, const int img_width, const int img_height, const int nChan, const int size_filter) {
+__kernel void img_qi_B ( 
+    __global float *mu1, 
+    __global float *mu2,
+    __global float *img1_sq, 
+    __global float *img2_sq,
+    __global float *img1_img2,
+    __global float *iqi_index, 
+    const int img_width, 
+    const int img_height,
+    const int nChan, 
+    const int size_filter ) 
+{
     
     // Get the index of the current element
     int w = get_global_id(0);
@@ -36,19 +47,17 @@ __kernel void img_qi_B( __global float *mu1,  __global float *mu2, __global floa
               int offset = j*nChan;
               for( c=0; c<nChan; c++)
               {
-                sum_img1_sq[c] += img1_sq[curRow + offset +c];
-                sum_img2_sq[c] += img2_sq[curRow + offset +c];
-                sum_img1_img2[c] += img1_img2[curRow + offset +c];
+                sum_img1_sq[c]   = sum_img1_sq[c]   + img1_sq[curRow + offset +c];
+                sum_img2_sq[c]   = sum_img2_sq[c]   + img2_sq[curRow + offset +c];
+                sum_img1_img2[c] = sum_img1_img2[c] + img1_img2[curRow + offset +c];
               }
           }
         }
-
         for( c=0; c<nChan; c++) {
           sigma1[c] = (sum_img1_sq[c])/total - mu1_sq[c];
           sigma2[c] = (sum_img2_sq[c])/total - mu2_sq[c] ;
           sigma12[c] = (sum_img1_img2[c])/total - mu1_mu2[c];
         }
-
     }
     else 
     {

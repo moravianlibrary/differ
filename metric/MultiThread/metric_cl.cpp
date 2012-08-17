@@ -23,9 +23,11 @@ using namespace std;
 //#ifndef DEBUG
 //#define DEBUG
 //#endif
-/*#ifndef DEBUG
+/*
+#ifndef DEBUG
 #define DEBUG
-#endif*/
+#endif
+*/
 
 enum Colorspace {
   GRAYSCALE,
@@ -189,7 +191,6 @@ class calcPSNR : public SimilarityMetric {
       src1 = colorspaceConversion(source1, space);
       src2 = colorspaceConversion(source2, space);
       
-      //if (mse.val[0]<0)
       if (1)
       {
         int x = src1->width, y = src1->height;
@@ -296,18 +297,7 @@ class calcSSIM : public SimilarityMetric {
         cout<<"Error>> No Index_map_created.\n";
         return 0;
       }
-      
-      int x = ssim_map->width, y = ssim_map->height;
-      int nChan = ssim_map->nChannels, d = IPL_DEPTH_8U;
-      CvSize size = cvSize(x, y);
-      IplImage *ssim_map_t = cvCreateImage(size, d, nChan);
-      cvConvert(ssim_map, ssim_map_t);
-      cvSave("output/imgSSIM.xml", ssim_map, NULL, "TESTing Index map");
-      cvSaveImage("output/imgSSIM.bmp", ssim_map_t);
-     
-      //Release Image
-      cvReleaseImage(&ssim_map_t);
-
+      cvSave("imgSSIM.xml", ssim_map, NULL, "TESTing Index map");
       return 1;
     }
 
@@ -535,7 +525,7 @@ class calcMSSSIM : public SimilarityMetric {
       // Printing the MS-SSIM_Map
       for (int i=0; i < level; i++)
       {
-        sprintf(file_name, "output/img_MS-SSIM_map_level_%d.xml", i);
+        sprintf(file_name, "img_MS-SSIM_map_level_%d.xml", i);
         cvSave(file_name, ms_ssim_map[i], NULL, "Testing MS-SSIM Index map");
       }
       return 1;
@@ -653,17 +643,7 @@ class calcQualityIndex : public SimilarityMetric {
         cout<<"Error>> No Index_map_created.\n";
         return 0;
       }
-      int x = image_quality_map->width, y = image_quality_map->height;
-      int nChan = image_quality_map->nChannels, d = IPL_DEPTH_8U;
-      CvSize size = cvSize(x, y);
-      
-      IplImage *image_quality_map_t = cvCreateImage(size, d, nChan);
-
-      cvConvert(image_quality_map, image_quality_map_t);
-
-      cvSave("output/imgQI.xml", image_quality_map, NULL, "TESTing Index map");
-      cvSaveImage("output/imgQI.bmp", image_quality_map_t);
-      cvReleaseImage(&image_quality_map_t);
+      cvSave("imgQI.xml", image_quality_map, NULL, "TESTing Index map");
       return 1;
     }
     
@@ -811,21 +791,55 @@ class host_program_openCl {
       cl_int ret;
  
       host_program_openCl() {
+
+      }
+
+      void print_Device_Info() {
       
         size_t max_wrkgrp_size; 
         platform_id = NULL;
         device_id = NULL;
-        
+       	int err;
+				cl_uint platforms;
+				cl_platform_id platform = NULL;
+				char cBuffer[1024];
+      
+				err = clGetPlatformIDs( 1, &platform, &platforms );
+				if (err != CL_SUCCESS)
+					printf("Error in OpenCL call!\n");
+        else {
+          #ifdef DEBUG
+				  printf("Number of platforms: %d\n", platforms);
+          #endif
+        }
+      
+				err = clGetPlatformInfo( platform, CL_PLATFORM_NAME, sizeof(cBuffer), cBuffer, NULL );
+				if (err != CL_SUCCESS)
+					printf("Error in OpenCL call!\n");
+        else {
+          #ifdef DEBUG
+          printf("CL_PLATFORM_NAME :\t %s\n", cBuffer);
+          #endif
+        }
+      
+				err = clGetPlatformInfo( platform, CL_PLATFORM_VERSION, sizeof(cBuffer), cBuffer, NULL );
+				if (err != CL_SUCCESS)
+					printf("Error in OpenCL call!\n");
+        else {
+          #ifdef DEBUG
+				  printf("CL_PLATFORM_VERSION :\t %s\n", cBuffer);
+          #endif
+        }
+
         // Get platform and device information
         ret = clGetPlatformIDs(1, &platform_id, &ret_num_platforms);
         ret = clGetDeviceIDs( platform_id, CL_DEVICE_TYPE_ALL, 1, &device_id, &ret_num_devices);
         ret = clGetDeviceInfo( device_id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(size_t),  &max_wrkgrp_size, NULL);
         if (ret != CL_SUCCESS)
           cout<<"Error: Failed to get device Info (CL_DEVICE_MAX_WORK_GROUP_SIZE)!\n";
-        else
-        {
+        else {
           #ifdef DEBUG
-          cout<<"Max work group size = \n"<<(int)max_wrkgrp_size <<"\n";
+          cout<<"Max work group size = "<<(int)max_wrkgrp_size <<"\n";
           #endif
         }
       }
@@ -1055,15 +1069,7 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
         cout<<"Error>> No Index_map_created.\n";
         return 0;
       }
-      int x = ssim_map->width, y = ssim_map->height;
-      int nChan = ssim_map->nChannels, d = IPL_DEPTH_8U;
-      CvSize size = cvSize(x, y);
-      IplImage *ssim_map_t = cvCreateImage(size, d, nChan);
-      cvConvert(ssim_map, ssim_map_t);
-      cvSave("output/imgSSIM.xml", ssim_map, NULL, "TESTing Index map");
-      cvSaveImage("output/imgSSIM.bmp", ssim_map_t);
-      //Release Image
-      cvReleaseImage(&ssim_map_t);
+      cvSave("imgSSIM.xml", ssim_map, NULL, "TESTing Index map");
       return 1;
     }
 
@@ -1077,7 +1083,6 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
     const char *ssim2;
 
     void Init() {
-      
       ssim1 = "ssim_part1.cl";
       ssim2 = "ssim_part2.cl";
       setup();
@@ -1216,7 +1221,7 @@ class SSIM_openCl : public host_program_openCl, public SimilarityMetric {
       //creating diff and difference squares
       IplImage *img1 = cvCreateImage(size, d, nChan);
       IplImage *img2 = cvCreateImage(size, d, nChan);
-      IplImage *ssim_map = cvCreateImage(size, d, nChan);
+      ssim_map = cvCreateImage(size, d, nChan);
       cvConvert(src1, img1);
     	cvConvert(src2, img2);
     
@@ -1331,7 +1336,7 @@ class MS_SSIM_openCl : public SSIM_openCl {
       // Printing the MS-SSIM_Map
       for (int i=0; i < level; i++)
       {
-        sprintf(file_name, "output/img_MS-SSIM_map_level_%d.xml", i);
+        sprintf(file_name, "img_MS-SSIM_map_level_%d.xml", i);
         cvSave(file_name, ms_ssim_map[i], NULL, "Testing MS-SSIM Index map");
       }
       return 1;
@@ -1415,15 +1420,13 @@ class MS_SSIM_openCl : public SSIM_openCl {
        #ifdef DEBUG
        cout<<"Executing ms_ssim kernel1 - \n";
        #endif
-       //for(int l=1; l <100;l++)
-        ret = clEnqueueNDRangeKernel(command_queue, kernel_ms_ssim1, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[0]);
+       ret = clEnqueueNDRangeKernel(command_queue, kernel_ms_ssim1, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[0]);
        if (ret!=CL_SUCCESS) {
          printf("Error: Kernel could not be executed\n"); 
          cout<<ret;
        }
        clWaitForEvents(1, &event[0]);
        
-       //ret = clEnqueueReadBuffer(command_queue, mu1_mem_obj, CL_TRUE, 0, LIST_SIZE*sizeof(float), ms_ssim, 0, NULL, NULL);
        #ifdef DEBUG
        cout<<"Setting arguments of kernel2 ms_ssim- \n"; 
        #endif
@@ -1450,7 +1453,7 @@ class MS_SSIM_openCl : public SSIM_openCl {
        ret = clEnqueueNDRangeKernel(command_queue, kernel_ms_ssim2, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[1]);
        clWaitForEvents(1, &event[1]);
        
-       // Read the memory buffer C on the device to the local variable C
+       // Read the memory buffers ms_ssim_index_mem_obj and cs_index_mem_obj on the device to the local variable ms_ssim and cs_map
        ret = clEnqueueReadBuffer(command_queue, ms_ssim_index_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), ms_ssim, 0, NULL, NULL);
        ret = clEnqueueReadBuffer(command_queue, cs_index_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), cs_map, 0, NULL, NULL);
     
@@ -1514,7 +1517,8 @@ class MS_SSIM_openCl : public SSIM_openCl {
         cout<<"Values at level="<<i<<" \n";
         #endif 
 
-        execute_ssim_temp((float*)(downsampleSrc1->imageData), (float*)(downsampleSrc2->imageData), filter, (float*)(ms_ssim_map[i]->imageData), (float*)(cs_map->imageData), LIST_SIZE, LOCAL_SIZE, xds, yds, nChan, gaussian_window, C1, C2);
+        execute_ssim_temp((float*)(downsampleSrc1->imageData), (float*)(downsampleSrc2->imageData), filter, (float*)(ms_ssim_map[i]->imageData), 
+            (float*)(cs_map->imageData), LIST_SIZE, LOCAL_SIZE, xds, yds, nChan, gaussian_window, C1, C2);
 
         mssim_t = cvAvg(ms_ssim_map[i]);
         mcs_t = cvAvg(cs_map);
@@ -1618,17 +1622,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
         cout<<"Error>> No Index_map_created.\n";
         return 0;
       }
-      int x = image_quality_map->width, y = image_quality_map->height;
-      int nChan = image_quality_map->nChannels, d = IPL_DEPTH_8U;
-      CvSize size = cvSize(x, y);
-      
-      IplImage *image_quality_map_t = cvCreateImage(size, d, nChan);
-
-      cvConvert(image_quality_map, image_quality_map_t);
-
-      cvSave("output/imgQI.xml", image_quality_map, NULL, "TESTing Index map");
-      cvSaveImage("output/imgQI.bmp", image_quality_map_t);
-      cvReleaseImage(&image_quality_map_t);
+      cvSave("imgQI.xml", image_quality_map, NULL, "TESTing Index map");
       return 1;
     }
  
@@ -1706,8 +1700,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
        #ifdef DEBUG
        cout<<"Executing iqi kernel1 - \n";
        #endif
-       //for(int l=1; l <100;l++)
-        ret = clEnqueueNDRangeKernel(command_queue, kernel_iqi1, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[0]);
+       ret = clEnqueueNDRangeKernel(command_queue, kernel_iqi1, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[0]);
        if (ret!=CL_SUCCESS) {
          printf("Error: Kernel could not be executed\n"); 
          cout<<ret;
@@ -1736,7 +1729,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
        ret = clEnqueueNDRangeKernel(command_queue, kernel_iqi2, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[1]);
        clWaitForEvents(1, &event[1]);
        
-       // Read the memory buffer C on the device to the local variable C
+       // Read the memory buffer iqi_index_mem_obj on the device to the local variable iqi
        ret = clEnqueueReadBuffer(command_queue, iqi_index_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), iqi, 0, NULL, NULL);
     
        #ifdef DEBUG
@@ -1772,7 +1765,7 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
       //creating diff and difference squares
       IplImage *img1 = cvCreateImage(size, d, nChan);
       IplImage *img2 = cvCreateImage(size, d, nChan);
-      IplImage *image_quality_map = cvCreateImage(size, d, nChan);
+      image_quality_map = cvCreateImage(size, d, nChan);
       cvConvert(src1, img1);
     	cvConvert(src2, img2);
   
@@ -1791,6 +1784,42 @@ class ImageQuI_openCl : public host_program_openCl, public SimilarityMetric {
 
 };
 
+void print_help_menu() {
+  
+  printf("\nUsage: metric [OPTIONS] [arguments] ...\n");
+  printf("\nOptions with Mandatory arguments.\n");
+  
+  printf("  --image1                  input image 1 name \n");
+  printf("  --image2                  input image 2 name\n");
+  printf("  --out                     output format (xml, txt)\n");
+  printf("  --algorithm               algorithm to use \n");
+  printf("                            mse - Mean Square Error\n");
+  printf("                            psnr - Peak Signal to Noise Ratio \n");
+  printf("                            ssim - Structural Similarity Index Metric\n");
+  printf("                            msssim - Multi-scale Structural Similarity Index Metric\n");
+  printf("                            iqi - Image Quality Index \n");
+  printf("                            all - All of the above metrics\n\n");
+  printf("  --colorspace              colorspace \n");
+  printf("                            0 - GRAYSCALE\n");
+  printf("                            1 - RGB\n");
+  printf("                            2 - YCbCr\n\n");
+  printf("  --L                       L value for PSNR \n");
+  printf("  --K1                      K1 value for SSIM \n");
+  printf("  --K2                      K2 value for SSIM \n");
+  printf("  --gaussian_window_size    Gaussian window value for SSIM \n");
+  printf("  --sigma                   Gaussian sigma value \n");
+  printf("  --level                   No. of levels MSSSIM \n");
+  printf("  --alpha                   Alpha - comma separated vector (size of level)  \n");
+  printf("  --beta                    Beta  - comma separated vector (size of level)  \n");
+  printf("  --gamma                   Gamma - comma separated vector (size of level)  \n");
+  printf("                            For example - --alpha 0.3,0.5,0.1,0.1 (for level = 4) \n");
+  printf("  --B                       B is Block size value for smoothing in IQI \n");
+  printf(" \n Options with no arguments. \n");
+  printf("  --opencl                  Use OpenCL \n");
+  printf("  --index_map               Print Index_map to xml file \n");
+  printf("  --help                    Displays help menu \n");
+ 
+}
 
 int main (int argc, char **argv) {
 
@@ -1811,6 +1840,10 @@ int main (int argc, char **argv) {
   calcPSNR psnr;
   calcMSSSIM msssim;
   calcQualityIndex iqi;
+
+  // Printing device Information
+  host_program_openCl H;
+  H.print_Device_Info();
 
   // Creating Objects of Metrics - OpenCl
   MSE_openCl M;
@@ -1835,7 +1868,7 @@ int main (int argc, char **argv) {
   bool opencl= false; // default no opencl
   char output_file[50];
   char img_name1[50], img_name2[50];
-  int opt_mse = 1, opt_psnr = 2, opt_ssim = 2, opt_msssim = 8, opt_iqi = 16;
+  int opt_mse = 1, opt_psnr = 2, opt_ssim = 4, opt_msssim = 8, opt_iqi = 16;
   static struct option long_options[] = {
       {"algorithm", 1, 0, 'm'},
       {"colorspace", 1, 0, 'c'},
@@ -1853,12 +1886,15 @@ int main (int argc, char **argv) {
       {"out", 1, 0, 'o'},
       {"image1", 1, 0, 1},
       {"image2", 1, 0, 2},
+      {"help", 0, 0, 'h'},
+      {"index_map", 0, 0, 'i'}, 
       {NULL, 0, NULL, 0}
   };
   int option_index = 0;
+  int index_map = 0;
   int ind = 0;
   char * cut;
-  while ((c = getopt_long(argc, argv, "m:pc:L:1:2:s:l:a:b:g:B:o:", long_options, &option_index)) != -1) {
+  while ((c = getopt_long(argc, argv, "m:pc:L:1:2:s:l:a:b:g:B:o:hi", long_options, &option_index)) != -1) {
       
     int this_option_optind = optind ? optind : 1;
     switch (c) {
@@ -2076,11 +2112,20 @@ int main (int argc, char **argv) {
           I.setB(B);
           break;
       
+      case 'i':
+          index_map =1; 
+          break;
+      
+      case 'h':
+          print_help_menu();
+          break;
+
       case '?':
           break;
   
       default:
-          printf ("?? getopt returned character code 0%o ??\n", c);
+          print_help_menu();
+          break;
 
     }
   }
@@ -2120,33 +2165,44 @@ int main (int argc, char **argv) {
       if (opencl == false) {
         res = ssim.compare(src1, src2, space);
         printCvScalar(res, "SSIM");
+        if(index_map == 1)
+          ssim.print_map();
       }
       else {
         res = S.compare(src1, src2, space);
         printCvScalar(res, "SSIM_opencl");
+        if(index_map == 1)
+          S.print_map();
       }
     
     if ((algo & opt_msssim) != 0)
       if (opencl == false) {
         res = msssim.compare(src1, src2, space);
         printCvScalar(res, "MSSSIM");
+        if(index_map == 1)
+          msssim.print_map();
       }
       else {
         res = MS.compare(src1, src2, space);
         printCvScalar(res, "MSSSIM_opencl");
+        if(index_map == 1)
+          MS.print_map();
       }
     
     if ((algo & opt_iqi) != 0)
       if (opencl == false) {
-        res = iqi.compare(src1,src2,space);
+        res = iqi.compare(src1, src2, space);
         printCvScalar(res, "IQI");
+        if(index_map == 1)
+          iqi.print_map();
       }
       else {
-        res = I.compare(src1,src2,space);
+        res = I.compare(src1, src2, space);
         printCvScalar(res, "IQI_opencl");
+        if(index_map == 1)
+          I.print_map();
       }
   }
-
 
   // Cleaning up OpenCL Hosts
   M.clean_up_host();

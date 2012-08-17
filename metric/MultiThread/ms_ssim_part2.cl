@@ -1,4 +1,19 @@
-__kernel void ms_ssim_B( __global float *mu1,  __global float *mu2, __constant float *filter,  __global float *img1_sq, __global float *img2_sq, __global float *img1_img2, __global float *ssim_index, __global float *cs_index, const int img_width, const int img_height, const int nChan, const int size_filter, const float K1, const float K2) {
+__kernel void ms_ssim_B (
+    __global float *mu1, 
+    __global float *mu2, 
+    __constant float *filter,  
+    __global float *img1_sq, 
+    __global float *img2_sq,
+    __global float *img1_img2,
+    __global float *ssim_index, 
+    __global float *cs_index,
+    const int img_width,
+    const int img_height,
+    const int nChan,
+    const int size_filter, 
+    const float K1, 
+    const float K2 ) 
+{
     
     // Get the index of the current element
     int w = get_global_id(0);
@@ -39,9 +54,9 @@ __kernel void ms_ssim_B( __global float *mu1,  __global float *mu2, __constant f
               int offset = j*nChan;
               for( c=0; c<nChan; c++)
               {
-                sum_img1_sq[c] += img1_sq[curRow + offset +c] * filter[k];
-                sum_img2_sq[c] += img2_sq[curRow + offset +c] * filter[k];
-                sum_img1_img2[c] += img1_img2[curRow + offset +c] * filter[k];
+                sum_img1_sq[c]   = sum_img1_sq[c]   + (img1_sq[curRow + offset +c] * filter[k]);
+                sum_img2_sq[c]   = sum_img2_sq[c]   + (img2_sq[curRow + offset +c] * filter[k]);
+                sum_img1_img2[c] = sum_img1_img2[c] + (img1_img2[curRow + offset +c] * filter[k]);
               }
           }
         }
