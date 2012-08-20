@@ -44,11 +44,6 @@ Mat get_gaussian_filter(int filter_size, int sigma) {
   return filter2D;
 }
 
-void printCvScalar(CvScalar value, const char *comment)
-{
-  cout<<comment<<" : "<<value.val[0]<<" , "<<value.val[1]<<" , "<<value.val[2]<<" , "<<value.val[3]<<"\n";
-}
-
 void print_time(clock_t start, int TIMES, const char *s) {
   double diff, time;
   diff = ( std::clock() - start ) / (double)CLOCKS_PER_SEC;
@@ -1791,7 +1786,7 @@ void print_help_menu() {
   
   printf("  --image1                  input image 1 name \n");
   printf("  --image2                  input image 2 name\n");
-  printf("  --out                     output format (xml, txt)\n");
+  printf("  --out                     output format (.xml, [Default stdout])\n");
   printf("  --algorithm               algorithm to use \n");
   printf("                            mse - Mean Square Error\n");
   printf("                            psnr - Peak Signal to Noise Ratio \n");
@@ -1819,6 +1814,31 @@ void print_help_menu() {
   printf("  --index_map               Print Index_map to xml file \n");
   printf("  --help                    Displays help menu \n");
  
+}
+
+void writeXML( CvFileStorage *fs, CvScalar result, const char * algo ) {
+  cvWriteString( fs, "Algorithm", algo);
+  cvStartWriteStruct( fs, "Values", CV_NODE_SEQ);
+  cvWriteReal( fs, 0, 1.0*result.val[0]);
+  cvWriteReal( fs, 0, 1.0*result.val[1]);
+  cvWriteReal( fs, 0, 1.0*result.val[2]);
+  cvEndWriteStruct(fs);
+}
+
+void printCvScalar(CvFileStorage *fs, CvScalar value, const char *comment, int out_status)
+{
+  if(out_status == 1)
+    writeXML(fs, value, comment);
+  else
+    cout<<comment<<" : "<<value.val[0]<<" , "<<value.val[1]<<" , "<<value.val[2]<<"\n";
+}
+
+void printError(CvFileStorage *fs, const char *comment, int out_status)
+{
+  if(out_status == 1)
+    cvWriteString( fs, "Error", comment);
+  else
+    printf("%s \n", comment);
 }
 
 int main (int argc, char **argv) {
@@ -1867,6 +1887,7 @@ int main (int argc, char **argv) {
   space = GRAYSCALE; // default color space
   bool opencl= false; // default no opencl
   char output_file[50];
+  int out_status = 0;
   char img_name1[50], img_name2[50];
   int opt_mse = 1, opt_psnr = 2, opt_ssim = 4, opt_msssim = 8, opt_iqi = 16;
   static struct option long_options[] = {
@@ -1953,6 +1974,7 @@ int main (int argc, char **argv) {
       
       case 'o':
           sscanf(optarg, "%s", output_file );
+          out_status = 1;
           #ifdef DEBUG
           printf("output_file - %s \n", output_file);
           #endif
@@ -2138,69 +2160,100 @@ int main (int argc, char **argv) {
   src1 = cvLoadImage(img_name1);
   src2 = cvLoadImage(img_name2);
 
+  CvFileStorage* fs;
+  int err;
+  fs = NULL;
+  if(out_status == 1)
+    fs = cvOpenFileStorage(output_file, 0,CV_STORAGE_WRITE);
+ 
+  if ( (src1->width != src2->width) || (src1->height != src2->height) || (src1->nChannels != src2->nChannels) ) {
+    printError(fs, "Image Dimensions mis-match", out_status);
+    if(fs != NULL)
+      cvReleaseFileStorage( &fs);
+    exit(0);
+  }
+
   if (algo!=0)
   {
     if ((algo & opt_mse) != 0)
       if (opencl == false) {
         res = mse.compare(src1, src2, space);
-        printCvScalar(res, "MSE");
+        printCvScalar(fs, res, "MSE", out_status);
       } 
       else {
         res = M.compare(src1, src2, space);
-        printCvScalar(res, "MSE_opencl");
+        printCvScalar(fs, res, "MSE_openCl", out_status);
       }
     
     if ((algo & opt_psnr) != 0)
       if (opencl == false) {
         res = psnr.compare(src1, src2, space);
-        printCvScalar(res, "PSNR");
+        printCvScalar(fs, res, "PSNR", out_status);
       }
       else {
         res = M.compare(src1, src2, space);
         res = M.getPSNR();
-        printCvScalar(res, "PSNR_openCl");
+        printCvScalar(fs, res, "PSNR_openCl", out_status);
       }
     
     if ((algo & opt_ssim) != 0)
       if (opencl == false) {
         res = ssim.compare(src1, src2, space);
-        printCvScalar(res, "SSIM");
-        if(index_map == 1)
-          ssim.print_map();
+        printCvScalar(fs, res, "SSIM", out_status);
+        if(index_map == 1) {
+          err = ssim.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map SSIM", out_status);
+        }
       }
       else {
         res = S.compare(src1, src2, space);
-        printCvScalar(res, "SSIM_opencl");
-        if(index_map == 1)
-          S.print_map();
+        printCvScalar(fs, res, "SSIM_opencl", out_status);
+        if(index_map == 1) {
+          err = S.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map SSIM OpenCl", out_status);
+        }
       }
     
     if ((algo & opt_msssim) != 0)
       if (opencl == false) {
         res = msssim.compare(src1, src2, space);
-        printCvScalar(res, "MSSSIM");
-        if(index_map == 1)
-          msssim.print_map();
+        printCvScalar(fs, res, "MSSSIM", out_status);
+        if(index_map == 1) {
+          err = msssim.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map MS-SSIM", out_status);
+        }
       }
       else {
         res = MS.compare(src1, src2, space);
-        printCvScalar(res, "MSSSIM_opencl");
-        if(index_map == 1)
-          MS.print_map();
+        printCvScalar(fs, res, "MSSSIM_opencl", out_status);
+        if(index_map == 1) {
+          err = MS.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map MS-SSIM openCl", out_status);
+        }
       }
     
     if ((algo & opt_iqi) != 0)
       if (opencl == false) {
         res = iqi.compare(src1, src2, space);
-        printCvScalar(res, "IQI");
-        if(index_map == 1)
-          iqi.print_map();
+        printCvScalar(fs, res, "IQI", out_status);
+        if(index_map == 1) {
+          err = iqi.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map IQI", out_status);
+        }
       }
       else {
         res = I.compare(src1, src2, space);
-        printCvScalar(res, "IQI_opencl");
-        if(index_map == 1)
-          I.print_map();
+        printCvScalar(fs, res, "IQI_opencl", out_status);
+        if(index_map == 1) {
+          err = I.print_map();
+          if(err == 0)
+            printError(fs, "Error Printing Index_map IQI openCl", out_status);
+        }
       }
   }
 
@@ -2214,6 +2267,10 @@ int main (int argc, char **argv) {
   cvReleaseImage(&src1);
   cvReleaseImage(&src2);
 
+  // Releasing storage
+  if(fs != NULL)
+    cvReleaseFileStorage( &fs);
+  
   //Will be used to calculate time
   /* 
   gettimeofday(&end_time,NULL);
