@@ -1,5 +1,6 @@
-#include "ssim.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "ssim.h"
 
 calcSSIM :: calcSSIM()
 {
@@ -39,7 +40,7 @@ int calcSSIM :: print_map()
   return 1;
 }
 
-virtual CvScalar calcSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar calcSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);

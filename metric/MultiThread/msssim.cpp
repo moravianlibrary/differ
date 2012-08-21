@@ -1,5 +1,7 @@
-#include "msssim.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "ssim.h"
+#include "msssim.h"
 
 calcMSSSIM :: calcMSSSIM()
 {
@@ -66,7 +68,7 @@ int calcMSSSIM :: print_map()
   return 1;
 }
 
-virtual CvScalar calcMSSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar calcMSSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   int x = source1->width, y = source1->height;
   int nChan = source1->nChannels;

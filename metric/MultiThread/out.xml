@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Algorithm>MSE_openCl</Algorithm>
+<Values>
+  93.2077026367187500 0. 0.</Values>
+<Algorithm>PSNR_openCl</Algorithm>
+<Values>
+  28.4362855715774963 .Inf .Inf</Values>
+<Algorithm>SSIM_opencl</Algorithm>
+<Values>
+  0.7536993196238750 0. 0.</Values>
+<Algorithm>MSSSIM_opencl</Algorithm>
+<Values>
+  0.8475272986736080 0. 0.</Values>
+<Algorithm>IQI_opencl</Algorithm>
+<Values>
+  0.4532319155422264 0. 0.</Values>
+</opencv_storage>

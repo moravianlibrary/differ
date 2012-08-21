@@ -1,5 +1,6 @@
-#include "iqi.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "iqi.h"
 
 calcQualityIndex :: calcQualityIndex()
 {
@@ -31,7 +32,7 @@ int calcQualityIndex :: print_map()
   return 1;
 }
 
-virtual CvScalar calcQualityIndex :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar calcQualityIndex :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1,* src2;
   src1 = colorspaceConversion(source1, space);

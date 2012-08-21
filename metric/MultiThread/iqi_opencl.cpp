@@ -1,5 +1,7 @@
-#include "iqi_opencl.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "host_program_opencl.h"
+#include "iqi_opencl.h"
 
 ImageQuI_openCl :: ImageQuI_openCl()
 {
@@ -148,7 +150,7 @@ void ImageQuI_openCl :: clean_up_host() {
    ret = clReleaseKernel(kernel_iqi2);
 }
 
-virtual CvScalar ImageQuI_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar ImageQuI_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);

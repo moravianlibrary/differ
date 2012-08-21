@@ -1,5 +1,5 @@
-#include "similarityMetric.h"
 #include "core.h"
+#include "similarityMetric.h"
 
 IplImage* SimilarityMetric :: colorspaceConversion(IplImage *source1, Colorspace space)
 {

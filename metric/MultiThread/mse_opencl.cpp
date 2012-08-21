@@ -1,5 +1,7 @@
 #include "core.h"
-#include "ssim_opencl.h"
+#include "similarityMetric.h"
+#include "host_program_opencl.h"
+#include "mse_opencl.h"
 
 MSE_openCl :: MSE_openCl()
 {
@@ -61,7 +63,7 @@ void MSE_openCl :: clean_up_host() {
    ret = clReleaseKernel(kernel_mse);
 }
 
-virtual CvScalar MSE_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar MSE_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);

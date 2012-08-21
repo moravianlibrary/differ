@@ -1,5 +1,5 @@
-#ifndef _SSIM_openCl_h
-#define _SSIM_openCl_h
+#ifndef _mse_opencl_h
+#define _mse_opencl_h
 
 class MSE_openCl : public host_program_openCl, public SimilarityMetric { 
 

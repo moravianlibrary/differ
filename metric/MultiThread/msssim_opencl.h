@@ -1,7 +1,8 @@
-#ifndef _MS_SSIM_openCl_h
-#define _MS_SSIM_openCl_h
+#ifndef _MSSSIM_openCl_h
+#define _MSSSIM_openCl_h
 
-class MS_SSIM_openCl : public SSIM_openCl {
+//class MS_SSIM_openCl : public SSIM_openCl {
+class MS_SSIM_openCl : public host_program_openCl, public SimilarityMetric { 
 
   private:
     double K1;

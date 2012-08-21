@@ -1,5 +1,6 @@
-#include "psnr.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "psnr.h"
 
 calcPSNR :: calcPSNR()
 {
@@ -10,7 +11,7 @@ calcPSNR :: calcPSNR()
     PSNR.val[i] = -1;
 }
 
-virtual CvScalar calcPSNR :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar calcPSNR :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);

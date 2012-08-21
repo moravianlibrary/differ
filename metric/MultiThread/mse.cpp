@@ -1,5 +1,6 @@
-#include "mse.h"    
 #include "core.h"
+#include "similarityMetric.h"
+#include "mse.h"    
 
 calcMSE :: calcMSE()
 {
@@ -7,7 +8,7 @@ calcMSE :: calcMSE()
     mse.val[i] = -1;
 }
 
-virtual CvScalar calcMSE :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar calcMSE :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);
@@ -42,5 +43,4 @@ virtual CvScalar calcMSE :: compare(IplImage *source1, IplImage *source2, Colors
 
   return mse;
 }
-
 

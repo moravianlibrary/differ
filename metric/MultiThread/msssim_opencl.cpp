@@ -1,5 +1,7 @@
-#include "msssim_opencl.h"
 #include "core.h"
+#include "similarityMetric.h"
+#include "host_program_opencl.h"
+#include "msssim_opencl.h"
 
 MS_SSIM_openCl :: MS_SSIM_openCl()
 {
@@ -262,7 +264,7 @@ CvScalar MS_SSIM_openCl :: execute_ms_ssim (IplImage *src1, IplImage *src2, floa
 
 }
 
-virtual CvScalar MS_SSIM_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
+CvScalar MS_SSIM_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
   IplImage *src1, *src2;
   src1 = colorspaceConversion(source1, space);
