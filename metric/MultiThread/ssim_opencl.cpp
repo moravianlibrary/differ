@@ -3,7 +3,6 @@
 #include "host_program_opencl.h"
 #include "ssim_opencl.h"
 
-
 SSIM_openCl :: SSIM_openCl()
 {
   K1 = 0.01;
@@ -36,6 +35,7 @@ int SSIM_openCl :: print_map()
 void SSIM_openCl :: Init() {
   ssim1 = "ssim_part1.cl";
   ssim2 = "ssim_part2.cl";
+  // setting up the context, command_queue
   setup();
   source_str_ssim1 = load_kernel(ssim1);
   source_size_ssim1 = source_size;
@@ -194,5 +194,4 @@ CvScalar SSIM_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace
 
   return mssim_value;
 }
-
 

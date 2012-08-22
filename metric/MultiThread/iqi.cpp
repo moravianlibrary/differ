@@ -70,7 +70,7 @@ CvScalar calcQualityIndex :: compare(IplImage *source1, IplImage *source2, Color
   IplImage *sigma12 = cvCreateImage(size, d, nChan);
 
   //PRELIMINARY COMPUTING
-
+  
   //average smoothing is performed
   cvSmooth(img1, mu1, CV_BLUR, B, B);
   cvSmooth(img2, mu2, CV_BLUR, B, B);
@@ -97,7 +97,7 @@ CvScalar calcQualityIndex :: compare(IplImage *source1, IplImage *source2, Color
   cvReleaseImage(&img2_sq);
   cvReleaseImage(&img1_img2);
   
-  // creating buffers for numerator and denominator and a temp buffer
+  // creating buffers for numerator and denominator
   IplImage *numerator1 = cvCreateImage(size, d, nChan);
   IplImage *numerator = cvCreateImage(size, d, nChan);
   IplImage *denominator1 = cvCreateImage(size, d, nChan);

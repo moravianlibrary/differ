@@ -15,6 +15,7 @@ calcMSSSIM :: calcMSSSIM()
   for (int i=0; i < 4; i++)
     ms_ssim_value.val[i] = -1; // Initialize with an out of bound value of mssim [0,1]
 
+  // setting alpha, beta, gamma default values
   float alpha_t[5] = {0.0, 0.0, 0.0, 0.0, 0.1333};
   float beta_t[5] = {0.0448, 0.2856, 0.3001, 0.2363, 0.1333};
   float gamma_t[5] = {0.0448, 0.2856, 0.3001, 0.2363, 0.1333};
@@ -70,6 +71,7 @@ int calcMSSSIM :: print_map()
 
 CvScalar calcMSSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace space)
 {
+  // image dimensions
   int x = source1->width, y = source1->height;
   int nChan = source1->nChannels;
   int d = source1->depth;
@@ -119,6 +121,7 @@ CvScalar calcMSSSIM :: compare(IplImage *source1, IplImage *source2, Colorspace 
     cout<<"Test values of ms_ssim = "<<mssim_t.val[0]<<" "<<mssim_t.val[1]<<" "<<mssim_t.val[2]<<"\n";
     #endif
 
+    // calculating the withed average to find ms-ssim
     for (int j=0; j < 4; j++)
     {
       if (i == 0)

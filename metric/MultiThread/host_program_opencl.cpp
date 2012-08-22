@@ -86,20 +86,17 @@ void host_program_openCl :: setup () {
      printf( "Error : Cannot create command queue.\n" ); 
 }
 
+
 cl_kernel host_program_openCl :: create_program (const char *kernel_function_name, const char *source_str, const size_t source_size) {
  
    // Create the OpenCL kernels
    cl_kernel kernel; 
-   
    // Create a program from the kernel source
    program = clCreateProgramWithSource(context, 1, (const char **)&source_str, (const size_t *)&source_size, &ret);
-  
    // Build the program
    ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
-  
    // Create the OpenCL kernel
    kernel = clCreateKernel(program, kernel_function_name, &ret);
-
    return kernel;
 }
 

@@ -1,6 +1,9 @@
 #ifndef _host_program_opencl_h
 #define _host_program_opencl_h
 
+// host_program_openCl
+// contains the basic function implementation like loading kernel, creating command queue, create program etc.
+// these functions are used for all similarity metrics implementations
 class host_program_openCl {
   
   public:
@@ -24,12 +27,16 @@ class host_program_openCl {
 
       }
 
+      // Prints the device information 
       void print_Device_Info();
       
+      // loads the kernel from a source file
       char * load_kernel (const char * kernel_name);
 
+      // create context and command queue
       void setup ();
 
+      // created and builds the program
       cl_kernel create_program (const char *kernel_function_name, const char *source_str, const size_t source_size);
     
       // Clean up

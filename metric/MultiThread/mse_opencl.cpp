@@ -14,7 +14,7 @@ MSE_openCl :: MSE_openCl()
 
 void MSE_openCl :: Init() {
   mse_cl = "mse.cl";
-  setup();
+  setup(); // setting up context, command queue
   source_str = load_kernel(mse_cl);
   source_size_mse = source_size;
   kernel_mse = create_program("vector_mse", source_str, source_size_mse);
@@ -42,7 +42,6 @@ void MSE_openCl :: execute_mse (float *A, float *B, float *C, int LIST_SIZE, int
    ret = clSetKernelArg(kernel_mse, 2, sizeof(cl_mem), (void *)&c_mem_obj);
    
    // Execute the OpenCL kernel on the list
-   //ret = clEnqueueNDRangeKernel(command_queue, kernel_mse, 1, NULL, &global_item_size, &local_item_size, 0, NULL, &event[0]);
    ret = clEnqueueNDRangeKernel(command_queue, kernel_mse, 1, NULL, &global_item_size, NULL, 0, NULL, &event[0]);
    if (ret!=CL_SUCCESS) {
      printf("Error: Kernel could not be executed\n"); 
@@ -80,6 +79,7 @@ CvScalar MSE_openCl :: compare(IplImage *source1, IplImage *source2, Colorspace 
   cvConvert(src1, img1);
 	cvConvert(src2, img2);
 
+  // calling the openCl implementation of mse
   execute_mse((float*)(img1->imageData), (float*)(img2->imageData), (float*)(mse_index->imageData), x*y*nChan, x);
 
   mse = cvAvg(mse_index);

@@ -37,7 +37,7 @@ void ImageQuI_openCl :: Init() {
   
   iqi1 = "img_qi1.cl";
   iqi2 = "img_qi2.cl";
-  setup();
+  setup(); // setting up the context, command queue
   source_str_iqi1 = load_kernel(iqi1);
   source_size_iqi1 = source_size;
   kernel_iqi1 = create_program("img_qi_A", source_str_iqi1, source_size_iqi1);
@@ -65,6 +65,7 @@ void ImageQuI_openCl :: execute_iqi (float *src1, float *src2, float *iqi, int L
    cl_mem mu2_mem_obj       = clCreateBuffer(context, CL_MEM_READ_WRITE, LIST_SIZE * sizeof(float), NULL, &ret);
    cl_mem iqi_index_mem_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY, LIST_SIZE * sizeof(float), NULL, &ret);
  
+   // check if memory allocation is successful
    if (!src1_mem_obj || !src2_mem_obj || !img1_sq_mem_obj || !img2_sq_mem_obj || !img1_img2_mem_obj || 
        !mu1_mem_obj || !mu2_mem_obj || !iqi_index_mem_obj)
        cout<<"Failed to allocate device memory!\n"; 
@@ -72,8 +73,11 @@ void ImageQuI_openCl :: execute_iqi (float *src1, float *src2, float *iqi, int L
    #ifdef DEBUG
    cout<<"Allocating memory buffers - \n"; 
    #endif
+   
    // Copy the lists Image Data src1, src2 to their respective memory buffers
    ret = clEnqueueWriteBuffer(command_queue, src1_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), src1, 0, NULL, NULL);
+   if (ret != CL_SUCCESS)
+      printf("Error: Failed to write to source array!\n");
    ret = clEnqueueWriteBuffer(command_queue, src2_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), src2, 0, NULL, NULL);
    if (ret != CL_SUCCESS)
       printf("Error: Failed to write to source array!\n");
@@ -81,6 +85,7 @@ void ImageQuI_openCl :: execute_iqi (float *src1, float *src2, float *iqi, int L
    #ifdef DEBUG
    cout<<"Setting arguments of kernel1 iqi- \n"; 
    #endif
+   
    // Set the arguments of the kernel iqi1
    ret = clSetKernelArg(kernel_iqi1, 0, sizeof(cl_mem), (void *)&src1_mem_obj);
    ret = clSetKernelArg(kernel_iqi1, 1, sizeof(cl_mem), (void *)&src2_mem_obj);
@@ -108,6 +113,7 @@ void ImageQuI_openCl :: execute_iqi (float *src1, float *src2, float *iqi, int L
    #ifdef DEBUG
    cout<<"Setting arguments of kernel2 iqi- \n"; 
    #endif
+   
    // Set the arguments of the kernel iqi2
    ret = clSetKernelArg(kernel_iqi2, 0, sizeof(cl_mem), (void *)&mu1_mem_obj);
    ret = clSetKernelArg(kernel_iqi2, 1, sizeof(cl_mem), (void *)&mu2_mem_obj);
@@ -133,6 +139,7 @@ void ImageQuI_openCl :: execute_iqi (float *src1, float *src2, float *iqi, int L
    #ifdef DEBUG
    cout<<"Cleaning up the memory bufffer\n"; 
    #endif
+   
    // Clean up
    ret = clReleaseMemObject(src1_mem_obj      );
    ret = clReleaseMemObject(src2_mem_obj      );
@@ -167,6 +174,7 @@ CvScalar ImageQuI_openCl :: compare(IplImage *source1, IplImage *source2, Colors
   cvConvert(src1, img1);
 	cvConvert(src2, img2);
 
+  // calling the openCl implementation
   execute_iqi((float*)(img1->imageData), (float*)(img2->imageData), (float*)(image_quality_map->imageData),x*y*nChan,x,x,y,nChan,B);
 
   image_quality_value = cvAvg(image_quality_map);
@@ -177,6 +185,7 @@ CvScalar ImageQuI_openCl :: compare(IplImage *source1, IplImage *source2, Colors
   cvReleaseImage(&src1);
   cvReleaseImage(&src2);
 
+  // returning the final value
   return image_quality_value;
 }
 

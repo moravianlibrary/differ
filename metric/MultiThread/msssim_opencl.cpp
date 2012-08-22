@@ -111,10 +111,14 @@ void MS_SSIM_openCl :: execute_ssim_temp (float *src1, float *src2, float *filte
    #endif
    // Copy the lists Image Data src1, src2 to their respective memory buffers
    ret = clEnqueueWriteBuffer(command_queue, src1_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), src1, 0, NULL, NULL);
+   if (ret != CL_SUCCESS)
+      printf("Error: Failed to write to source array!\n");
    ret = clEnqueueWriteBuffer(command_queue, src2_mem_obj, CL_TRUE, 0, LIST_SIZE * sizeof(float), src2, 0, NULL, NULL);
    if (ret != CL_SUCCESS)
       printf("Error: Failed to write to source array!\n");
    ret = clEnqueueWriteBuffer(command_queue, filter_mem_obj, CL_TRUE, 0, filter_size*filter_size* sizeof(float), filter, 0, NULL, NULL);
+   if (ret != CL_SUCCESS)
+      printf("Error: Failed to write to source array!\n");
     
    #ifdef DEBUG
    cout<<"Setting arguments of kernel1 ms_ssim- \n"; 
@@ -137,6 +141,7 @@ void MS_SSIM_openCl :: execute_ssim_temp (float *src1, float *src2, float *filte
    #ifdef DEBUG
    cout<<"Executing ms_ssim kernel1 - \n";
    #endif
+   // executing hte kernel
    ret = clEnqueueNDRangeKernel(command_queue, kernel_ms_ssim1, 2, NULL, global_item_size, local_item_size, 0, NULL, &event[0]);
    if (ret!=CL_SUCCESS) {
      printf("Error: Kernel could not be executed\n"); 
@@ -245,6 +250,7 @@ CvScalar MS_SSIM_openCl :: execute_ms_ssim (IplImage *src1, IplImage *src2, floa
     cout<<"Some values for testing - "<<mssim_t.val[0]<<" "<<mssim_t.val[1]<<" "<<mssim_t.val[2]<<"\n";
     #endif
 
+    // calculating the mean ms_sssim value using the weighted average as defined
     for (int j=0; j < 4; j++)
     {
       if (i == 0)
@@ -286,6 +292,7 @@ CvScalar MS_SSIM_openCl :: compare(IplImage *source1, IplImage *source2, Colorsp
   Mat tempo = get_gaussian_filter(gaussian_window, gaussian_sigma);
   float *filter = (float*)tempo.data;
 
+  // calling kernel implementation
   ms_ssim_value  = execute_ms_ssim(img1, img2, filter, x*y*nChan, x, x, y, nChan, gaussian_window, C1, C2, level);
 
   //Release images

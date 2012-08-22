@@ -1,11 +1,11 @@
 #include "core.h"
 
-// Some primitive and useful functions
+// Some primitive and useful functions are implemented here
 
 Mat get_gaussian_filter(int filter_size, int sigma) {
   Mat filter1D;
-  filter1D = getGaussianKernel(filter_size, sigma, CV_32F);
-  Mat filter2D = filter1D * filter1D.t();
+  filter1D = getGaussianKernel(filter_size, sigma, CV_32F); // this function creates a 1-D gaussian array
+  Mat filter2D = filter1D * filter1D.t(); // converting into 2-D
   return filter2D;
 }
 
@@ -18,10 +18,8 @@ void print_time(clock_t start, int TIMES, const char *s) {
 }
 
 void print_help_menu() {
-  
   printf("\nUsage: metric [OPTIONS] [arguments] ...\n");
   printf("\nOptions with Mandatory arguments.\n");
-  
   printf("  --image1                  input image 1 name \n");
   printf("  --image2                  input image 2 name\n");
   printf("  --out                     output format (.xml, [Default stdout])\n");
@@ -51,7 +49,6 @@ void print_help_menu() {
   printf("  --opencl                  Use OpenCL \n");
   printf("  --index_map               Print Index_map to xml file \n");
   printf("  --help                    Displays help menu \n");
- 
 }
 
 void writeXML( CvFileStorage *fs, CvScalar result, const char * algo ) {
@@ -78,4 +75,6 @@ void printError(CvFileStorage *fs, const char *comment, int out_status)
   else
     printf("%s \n", comment);
 }
+
+
 
