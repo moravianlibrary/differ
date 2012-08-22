@@ -80,16 +80,26 @@ int main (int argc, char **argv) {
   #ifdef DEBUG
   cout<<"Finished Initialization\n";
   #endif
-  
+ 
+
+  // Creating ouput file storage
+  CvFileStorage* fs;
+  char output_file[50];
+  int err;
+  int out_status = 0;
+  fs = NULL;
+  if (out_status == 1)
+    fs = cvOpenFileStorage(output_file, 0, CV_STORAGE_WRITE);
+  char error[100];
+
   // Setting up the options
   int c;
   int algo = 0;
   Colorspace space;
   space = GRAYSCALE; // default color space
   bool opencl= false; // default no opencl
-  char output_file[50];
-  int out_status = 0;
   char img_name1[50], img_name2[50];
+  int image1_status = 0, image2_status = 0;
   int opt_mse = 1, opt_psnr = 2, opt_ssim = 4, opt_msssim = 8, opt_iqi = 16;
   static struct option long_options[] = {
       {"algorithm", 1, 0, 'm'},
@@ -116,6 +126,14 @@ int main (int argc, char **argv) {
   int index_map = 0;
   int ind = 0;
   char * cut;
+
+
+  if (argc<7) {
+    cout<<"Error : Not enough input arguments\n";
+    print_help_menu();
+    exit(0);
+  }
+
   while ((c = getopt_long(argc, argv, "m:pc:L:1:2:s:l:a:b:g:B:o:hi", long_options, &option_index)) != -1) {
       
     int this_option_optind = optind ? optind : 1;
@@ -139,6 +157,11 @@ int main (int argc, char **argv) {
               algo = algo | opt_iqi;
           if (strcmp(algorithm,"all") == 0)
               algo = opt_mse | opt_psnr | opt_ssim | opt_msssim | opt_iqi;
+          if (!algo) {
+              sprintf(error, "%s%s", "Invalid algorithm\n", "Possible arguments are - mse, psnr, ssim, msssim, iqi, all");
+              printError(fs, error, out_status);
+              exit(0);
+          }
           break;
       
       case 'c':
@@ -186,6 +209,7 @@ int main (int argc, char **argv) {
           #ifdef DEBUG
     		  printf("Image1 : %s\n", img_name1);
           #endif
+          image1_status = 1;
           break;
       
       case 2:
@@ -193,6 +217,7 @@ int main (int argc, char **argv) {
           #ifdef DEBUG
     	  	printf("Image2 : %s\n", img_name2);
           #endif
+          image2_status = 1;
           break;
       
       case 'L':
@@ -358,15 +383,30 @@ int main (int argc, char **argv) {
   cout<<"Finished with get_opt_long\n";
   cout<<"Algo = "<<algo<<"\n";
   #endif
-  src1 = cvLoadImage(img_name1);
-  src2 = cvLoadImage(img_name2);
-
-  CvFileStorage* fs;
-  int err;
-  fs = NULL;
-  if (out_status == 1)
-    fs = cvOpenFileStorage(output_file, 0,CV_STORAGE_WRITE);
  
+  if (out_status == 1)
+    fs = cvOpenFileStorage(output_file, 0, CV_STORAGE_WRITE);
+
+  if (!image1_status || !image2_status) {
+    sprintf(error, "%s", "No Input image Arguments");
+    printError(fs, error, out_status);
+    exit(0);
+  }
+
+  // Loading the source images in src1 and src2
+  src1 = cvLoadImage(img_name1);
+  if (!src1) {
+    sprintf(error, "%s: %s", "Could not load image file", img_name1);
+    printError(fs, error, out_status);
+    exit(0);
+  }
+  src2 = cvLoadImage(img_name2);
+  if (!src2) {
+    sprintf(error, "%s: %s", "Could not load image file", img_name2);
+    printError(fs, error, out_status);
+    exit(0);
+  }
+
   if ( (src1->width != src2->width) || (src1->height != src2->height) || (src1->nChannels != src2->nChannels) ) {
     printError(fs, "Image Dimensions mis-match", out_status);
     if (fs != NULL)

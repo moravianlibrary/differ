@@ -137,6 +137,15 @@ CvScalar calcQualityIndex :: compare(IplImage *source1, IplImage *source2, Color
   
   // ((4*sigma12).*(mu1_mu2))./((mu1_sq + mu2_sq).*(sigma1_sq + sigma2_sq))
   cvDiv(numerator, denominator, image_quality_map, 1);
+  /*for (int i=0; i<(x*y*nChan); i++) {
+    if (denominator->imageData[i] == 0)
+      image_quality_map->imageData[i] = (float)(1.0);
+    else
+    { 
+      image_quality_map->imageData[i] = (float)(1.0*(numerator->imageData[i])/(denominator->imageData[i]));
+      printf("%f \n",image_quality_map->imageData[i]);
+    }
+  }*/
 
   // image_quality_map created in image_quality_map
   // average is taken 
