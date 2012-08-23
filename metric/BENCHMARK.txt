@@ -1,0 +1,13 @@
+
+Time elapsed in miliseconds (msec)
+Image1	        Image2	            Image Dimensions	MSE	        PSNR	        SSIM	        MS-SSIM	        IQI
+							
+logo.jpg	logo.jpg	    235 x 164 x 3	1.152039	1.152992	8.555174	11.511087	7.754087
+peppers.bmp	peppers_blur.bmp    512 x 512 x 1 	4.230976	4.162073	21.466970	29.397964	20.262003
+lena.bmp	lena.bmp	    512 x 512 x 3	8.266926	8.409023	67.548990	87.186813	62.026978
+lena.bmp	lena_blur.bmp	    512 x 512 x3	8.122921	8.224964	68.901062	83.928108	63.999891
+big.bmp	        big_blur.bmp	    2008 x 1384 x 3	112.27917	94.52414	757.95388	949.11289	688.44199
+large.jpg	large.jpg	    3840 x 2160 x 3	283.381224	279.361010	2343.210936     2994.309187	2150.556803
+							
+
+
